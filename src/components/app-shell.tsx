@@ -1,0 +1,337 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+  LayoutDashboard, Video, FolderKanban, Subtitles, Sparkles, Library,
+  LayoutTemplate, Mic2, Music2, FileVideo, KeyRound, Languages, ScrollText,
+  Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun,
+  Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
+} from "lucide-react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
+
+const navMain = [
+  { icon: LayoutDashboard, label: "Dashboard", to: "/" },
+  { icon: Video, label: "Create Video", to: "/create", badge: "AI" },
+  { icon: FolderKanban, label: "Projects", to: "/projects", badge: "24" },
+  { icon: Subtitles, label: "Subtitle Studio", to: "/subtitle-studio" },
+  { icon: Sparkles, label: "Video Effects", to: "/effects" },
+  { icon: Library, label: "Assets Library", to: "/assets" },
+  { icon: LayoutTemplate, label: "Templates", to: "/templates" },
+  { icon: Mic2, label: "Voices", to: "/voices" },
+  { icon: Music2, label: "Music", to: "/music" },
+  { icon: FileVideo, label: "Outputs", to: "/outputs" },
+];
+
+const navGeneral = [
+  { icon: KeyRound, label: "API Manager", to: "/api-manager" },
+  { icon: Languages, label: "Languages", to: "/languages" },
+  { icon: ScrollText, label: "Logs", to: "/logs" },
+  { icon: SettingsIcon, label: "Settings", to: "/settings" },
+  { icon: Code2, label: "Developer Mode", to: "/developer" },
+  { icon: Info, label: "About", to: "/about" },
+];
+
+export function AppShell({ children, maxWidth = 1600 }: { children: ReactNode; maxWidth?: number }) {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="flex">
+        <Sidebar />
+        <main className="flex-1 min-w-0">
+          <TopBar />
+          <div className="px-8 pb-10 pt-2 mx-auto" style={{ maxWidth }}>
+            {children}
+            <Footer />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function Sidebar() {
+  const pathname = useRouterState({ select: s => s.location.pathname });
+  return (
+    <aside className="w-[260px] shrink-0 h-screen sticky top-0 bg-sidebar border-r border-border flex flex-col">
+      <Link to="/" className="px-6 pt-6 pb-5 block">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-brand-gradient grid place-items-center shadow-brand">
+            <Wand2 className="w-[18px] h-[18px] text-white" strokeWidth={2.5} />
+          </div>
+          <div>
+            <div className="font-display font-extrabold text-[15px] leading-none tracking-tight">VideoForge</div>
+            <div className="text-[10px] text-sidebar-muted font-medium mt-1 tracking-wider uppercase">by Abid Ali</div>
+          </div>
+        </div>
+      </Link>
+
+      <div className="flex-1 overflow-y-auto px-3 pb-4">
+        <div className="px-3 pt-2 pb-2 text-[10px] font-semibold tracking-[0.14em] text-sidebar-muted">MENU</div>
+        <nav className="space-y-0.5">
+          {navMain.map(i => <NavItem key={i.label} {...i} active={pathname === i.to} />)}
+        </nav>
+        <div className="px-3 pt-6 pb-2 text-[10px] font-semibold tracking-[0.14em] text-sidebar-muted">GENERAL</div>
+        <nav className="space-y-0.5">
+          {navGeneral.map(i => <NavItem key={i.label} {...i} active={pathname === i.to} />)}
+        </nav>
+      </div>
+
+      <div className="p-3">
+        <div className="relative rounded-2xl bg-brand-gradient-radial p-4 overflow-hidden">
+          <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,.6), transparent 40%)" }} />
+          <div className="relative">
+            <div className="w-8 h-8 rounded-lg bg-white/15 backdrop-blur grid place-items-center mb-3">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            <div className="text-white font-display font-bold text-[15px] leading-tight">Upgrade to <br />VideoForge Pro</div>
+            <div className="text-white/70 text-[11px] mt-1.5 leading-snug">4K rendering, unlimited voices & priority GPU.</div>
+            <button className="mt-3 w-full bg-white text-[#164E32] text-[12px] font-semibold py-2 rounded-lg hover:bg-white/95 transition">Upgrade</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function NavItem({ icon: Icon, label, to, active, badge }: any) {
+  return (
+    <Link
+      to={to}
+      className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] font-medium transition cursor-pointer
+        ${active ? "text-primary bg-accent" : "text-sidebar-foreground/70 hover:bg-secondary hover:text-sidebar-foreground"}`}
+    >
+      {active && <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-full bg-brand-gradient" />}
+      <Icon className="w-[18px] h-[18px]" strokeWidth={active ? 2.4 : 2} />
+      <span className="flex-1">{label}</span>
+      {badge && (
+        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${badge === "AI" ? "bg-brand-gradient text-white" : "bg-secondary text-muted-foreground"}`}>{badge}</span>
+      )}
+    </Link>
+  );
+}
+
+function TopBar() {
+  return (
+    <div className="sticky top-0 z-30 backdrop-blur-xl bg-background/70 border-b border-border/60">
+      <div className="px-8 h-[68px] flex items-center gap-4 mx-auto" style={{ maxWidth: 1600 }}>
+        <div className="flex-1 max-w-xl relative">
+          <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <input
+            placeholder="Search projects, voices, templates…"
+            className="w-full h-11 pl-11 pr-20 rounded-xl bg-card border border-border text-[13.5px] placeholder:text-muted-foreground focus:outline-none focus:border-primary/30 focus:ring-4 focus:ring-primary/5 transition"
+          />
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-muted-foreground bg-secondary px-2 py-1 rounded-md font-medium">
+            <Command className="w-3 h-3" /> F
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-card border border-border">
+          <div className="relative">
+            <div className="w-2 h-2 rounded-full bg-success" />
+            <div className="absolute inset-0 w-2 h-2 rounded-full bg-success animate-ping opacity-60" />
+          </div>
+          <span className="text-[12px] font-medium text-foreground">All Systems Online</span>
+        </div>
+
+        <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-accent/40 border border-primary/15">
+          <Sparkles className="w-3.5 h-3.5 text-primary" />
+          <span className="text-[12px] font-semibold text-primary">Pro Plan</span>
+        </div>
+
+        <button className="w-10 h-10 rounded-xl bg-card border border-border grid place-items-center text-muted-foreground hover:text-foreground transition">
+          <Sun className="w-4 h-4" />
+        </button>
+        <button className="relative w-10 h-10 rounded-xl bg-card border border-border grid place-items-center text-muted-foreground hover:text-foreground transition">
+          <Bell className="w-4 h-4" />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand-gradient" />
+        </button>
+
+        <UserMenu />
+      </div>
+    </div>
+  );
+}
+
+function UserMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const h = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
+  const items = [
+    { icon: User, label: "Profile", to: "/account?tab=profile" },
+    { icon: UserCircle, label: "Account", to: "/account?tab=account" },
+    { icon: Sparkles, label: "Subscription", to: "/account?tab=subscription" },
+    { icon: Receipt, label: "Billing", to: "/account?tab=billing" },
+    { icon: Gauge, label: "API Usage", to: "/account?tab=api-usage" },
+    { icon: Shield, label: "Security", to: "/account?tab=security" },
+  ];
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-3 pl-3 pr-1.5 py-1.5 rounded-xl bg-card border border-border cursor-pointer hover:border-primary/20 transition"
+      >
+        <div className="text-right leading-tight">
+          <div className="text-[12.5px] font-semibold">Abid Ali</div>
+          <div className="text-[10.5px] text-muted-foreground">Creator · Pro</div>
+        </div>
+        <div className="w-8 h-8 rounded-lg bg-brand-gradient grid place-items-center text-white font-semibold text-[12px]">AA</div>
+        <ChevronDown className={`w-3.5 h-3.5 text-muted-foreground transition ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+8px)] w-[280px] rounded-2xl bg-card border border-border shadow-card-lg p-2 z-50">
+          <div className="p-3 flex items-center gap-3 border-b border-border mb-2">
+            <div className="w-11 h-11 rounded-xl bg-brand-gradient grid place-items-center text-white font-bold text-[14px]">AA</div>
+            <div className="min-w-0">
+              <div className="text-[13px] font-bold truncate">Abid Ali</div>
+              <div className="text-[11px] text-muted-foreground truncate">abid@abidalidev.com</div>
+            </div>
+          </div>
+          {items.map(i => (
+            <Link key={i.label} to="/account" onClick={() => setOpen(false)} className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] hover:bg-secondary transition">
+              <i.icon className="w-4 h-4 text-muted-foreground" />
+              <span className="flex-1">{i.label}</span>
+            </Link>
+          ))}
+          <div className="h-px bg-border my-2" />
+          <Link to="/login" onClick={() => setOpen(false)} className="flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] text-destructive hover:bg-destructive/5 transition">
+            <LogOut className="w-4 h-4" />
+            <span>Sign out</span>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="mt-10 pt-6 border-t border-border flex items-center justify-between text-[11.5px] text-muted-foreground">
+      <div className="flex items-center gap-2">
+        <div className="w-5 h-5 rounded-md bg-brand-gradient grid place-items-center">
+          <Wand2 className="w-2.5 h-2.5 text-white" strokeWidth={2.5} />
+        </div>
+        <span className="font-medium">Abid VideoForge AI</span>
+        <span>· v1.0.0</span>
+      </div>
+      <div className="flex items-center gap-5">
+        <a href="https://abidalidev.com" target="_blank" rel="noreferrer" className="hover:text-foreground transition">abidalidev.com</a>
+        <a href="https://github.com/abidmmp" target="_blank" rel="noreferrer" className="hover:text-foreground transition">GitHub</a>
+        <a href="https://linkedin.com/in/abidalidev" target="_blank" rel="noreferrer" className="hover:text-foreground transition">LinkedIn</a>
+        <span>© 2026 Abid Ali</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============ Shared page primitives ============ */
+
+export function PageHeader({ crumb, title, subtitle, actions }: { crumb: string[]; title: string; subtitle?: string; actions?: ReactNode }) {
+  return (
+    <div className="flex items-end justify-between pt-7 pb-6 gap-4">
+      <div className="min-w-0">
+        <div className="flex items-center gap-2 text-[12px] text-muted-foreground mb-2">
+          {crumb.map((c, i) => (
+            <span key={i} className="flex items-center gap-2">
+              {i > 0 && <span className="text-border">/</span>}
+              <span className={i === crumb.length - 1 ? "text-foreground font-medium" : ""}>{c}</span>
+            </span>
+          ))}
+        </div>
+        <h1 className="font-display font-extrabold text-[34px] leading-none tracking-tight">{title}</h1>
+        {subtitle && <p className="text-[13.5px] text-muted-foreground mt-2.5">{subtitle}</p>}
+      </div>
+      {actions && <div className="flex items-center gap-2.5 shrink-0">{actions}</div>}
+    </div>
+  );
+}
+
+export function Card({ children, className = "", padding = "p-6" }: { children: ReactNode; className?: string; padding?: string }) {
+  return <div className={`rounded-3xl bg-card border border-border shadow-card ${padding} ${className}`}>{children}</div>;
+}
+
+export function SectionCard({ title, subtitle, right, children, defaultOpen = true, collapsible = true }: { title: string; subtitle?: string; right?: ReactNode; children: ReactNode; defaultOpen?: boolean; collapsible?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="rounded-3xl bg-card border border-border shadow-card overflow-hidden">
+      <button
+        onClick={() => collapsible && setOpen(v => !v)}
+        className={`w-full flex items-center justify-between gap-4 px-6 py-5 ${collapsible ? "cursor-pointer hover:bg-secondary/30" : ""} transition`}
+      >
+        <div className="text-left">
+          <h3 className="font-display font-bold text-[16px]">{title}</h3>
+          {subtitle && <p className="text-[11.5px] text-muted-foreground mt-0.5">{subtitle}</p>}
+        </div>
+        <div className="flex items-center gap-3">
+          {right}
+          {collapsible && <ChevronDown className={`w-4 h-4 text-muted-foreground transition ${open ? "" : "-rotate-90"}`} />}
+        </div>
+      </button>
+      {open && <div className="px-6 pb-6 pt-1 border-t border-border/60">{children}</div>}
+    </div>
+  );
+}
+
+export function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
+  return (
+    <label className="block">
+      <div className="text-[12px] font-semibold text-foreground mb-1.5">{label}</div>
+      {children}
+      {hint && <div className="text-[11px] text-muted-foreground mt-1.5">{hint}</div>}
+    </label>
+  );
+}
+
+export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input {...props} className={`w-full h-10 px-3.5 rounded-xl bg-card border border-border text-[13px] focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition ${props.className ?? ""}`} />;
+}
+
+export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return <textarea {...props} className={`w-full px-3.5 py-2.5 rounded-xl bg-card border border-border text-[13px] focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition resize-y ${props.className ?? ""}`} />;
+}
+
+export function Select({ children, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return <select {...props} className={`w-full h-10 px-3 rounded-xl bg-card border border-border text-[13px] focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition ${props.className ?? ""}`}>{children}</select>;
+}
+
+export function Toggle({ checked = false, onChange }: { checked?: boolean; onChange?: (v: boolean) => void }) {
+  const [on, setOn] = useState(checked);
+  return (
+    <button
+      onClick={() => { setOn(!on); onChange?.(!on); }}
+      className={`relative w-10 h-6 rounded-full transition ${on ? "bg-brand-gradient" : "bg-secondary"}`}
+    >
+      <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition ${on ? "left-[18px]" : "left-0.5"}`} />
+    </button>
+  );
+}
+
+export function PrimaryButton({ children, className = "", ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return <button {...props} className={`h-11 px-5 rounded-xl bg-brand-gradient text-white text-[13px] font-semibold shadow-brand hover:opacity-95 transition flex items-center justify-center gap-2 ${className}`}>{children}</button>;
+}
+
+export function GhostButton({ children, className = "", ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return <button {...props} className={`h-11 px-5 rounded-xl bg-card border border-border text-[13px] font-semibold hover:bg-secondary transition flex items-center justify-center gap-2 ${className}`}>{children}</button>;
+}
+
+export function Pill({ children, tone = "default" }: { children: ReactNode; tone?: "default" | "success" | "warning" | "primary" | "danger" }) {
+  const tones = {
+    default: "bg-secondary text-muted-foreground",
+    success: "bg-success/10 text-success",
+    warning: "bg-warning/15 text-amber-700",
+    primary: "bg-accent text-primary",
+    danger: "bg-destructive/10 text-destructive",
+  } as const;
+  return <span className={`inline-flex items-center gap-1 text-[10.5px] font-bold px-2 py-1 rounded-md ${tones[tone]}`}>{children}</span>;
+}
+
+export function Slider({ value = 50, min = 0, max = 100, onChange }: { value?: number; min?: number; max?: number; onChange?: (v: number) => void }) {
+  const [v, setV] = useState(value);
+  return (
+    <input
+      type="range" min={min} max={max} value={v}
+      onChange={(e) => { const n = +e.target.value; setV(n); onChange?.(n); }}
+      className="w-full accent-[#227850]"
+    />
+  );
+}
