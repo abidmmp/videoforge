@@ -5,10 +5,11 @@ import {
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
   CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
-  AudioLines, Rocket, ListVideo,
+  AudioLines, Rocket, ListVideo, Menu, X,
 } from "lucide-react";
 import { useState, useRef, useEffect, type ReactNode } from "react";
 import { CommandPalette, useCommandPalette } from "@/components/command-palette";
+
 
 const navMain = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/" },
