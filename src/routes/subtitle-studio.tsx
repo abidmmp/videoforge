@@ -7,8 +7,22 @@ import {
   Type, Sparkles, Save, Download, Search, Star, Clock, Bold, Italic, Underline,
   AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, Move,
   Copy, ClipboardPaste, Undo2, Redo2, RotateCcw, Eye, EyeOff, Check, Palette, Wand2,
-  CheckCircle2, Accessibility, Gauge,
+  CheckCircle2, Accessibility, Gauge, Sliders, LayoutTemplate, Zap, Mic2, Brush, FolderHeart,
 } from "lucide-react";
+import {
+  TemplateGallerySection, AnimationStudioSection, KaraokeHighlightSection,
+  ColorThemesSection, BrandKitSection, AIStyleRecommendationSection,
+} from "@/components/subtitle-templates";
+
+type Tab = "style" | "templates" | "animations" | "karaoke" | "themes" | "brand";
+const TABS: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: "style", label: "Manual Style", icon: Sliders },
+  { id: "templates", label: "Templates", icon: LayoutTemplate },
+  { id: "animations", label: "Animations", icon: Zap },
+  { id: "karaoke", label: "Karaoke", icon: Mic2 },
+  { id: "themes", label: "Color Themes", icon: Brush },
+  { id: "brand", label: "Brand Kit", icon: FolderHeart },
+];
 
 export const Route = createFileRoute("/subtitle-studio")({
   head: () => ({ meta: [{ title: "Subtitle Studio — VideoForge AI" }] }),
@@ -75,6 +89,7 @@ type TextCase = "Normal" | "UPPERCASE" | "lowercase" | "Sentence";
 function SubtitleStudioPage() {
   // Enable
   const [enabled, setEnabled] = useState(true);
+  const [tab, setTab] = useState<Tab>("style");
 
   // Font
   const [fontQuery, setFontQuery] = useState("");
@@ -179,8 +194,31 @@ function SubtitleStudioPage() {
         }
       />
 
+      <div className="flex items-center gap-1 bg-card border border-border rounded-2xl p-1 mb-5 w-fit shadow-card">
+        {TABS.map(t => {
+          const Icon = t.icon;
+          const active = tab === t.id;
+          return (
+            <button key={t.id} onClick={() => setTab(t.id)} className={`flex items-center gap-2 px-4 h-10 rounded-xl text-[12.5px] font-semibold transition ${active ? "bg-brand-gradient text-white shadow-brand" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+              <Icon className="w-4 h-4" /> {t.label}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-8 space-y-5">
+          {tab !== "style" && (
+            <>
+              {tab === "templates" && <TemplateGallerySection />}
+              {tab === "animations" && <AnimationStudioSection />}
+              {tab === "karaoke" && <KaraokeHighlightSection />}
+              {tab === "themes" && <ColorThemesSection />}
+              {tab === "brand" && <BrandKitSection />}
+            </>
+          )}
+          {tab === "style" && (
+          <>
           {/* ENABLE */}
           <SectionCard
             title="Subtitle Engine"
@@ -425,6 +463,8 @@ function SubtitleStudioPage() {
               </div>
             </SectionCard>
           </div>
+          </>
+          )}
         </div>
 
         {/* RIGHT RAIL: Preview + AI */}
@@ -491,6 +531,8 @@ function SubtitleStudioPage() {
                 <Sparkles className="w-3.5 h-3.5" /> Apply AI Auto-Style
               </button>
             </div>
+
+            <AIStyleRecommendationSection />
           </div>
         </div>
       </div>
