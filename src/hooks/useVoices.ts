@@ -7,6 +7,6 @@ export function useVoices() {
     queryKey: queryKeys.voices,
     queryFn: ({ signal }) => voiceService.list(signal),
     staleTime: 5 * 60_000,
-    enabled: false,
+    // Phase 8B: enabled by default; callers can override.
   });
 }

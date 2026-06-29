@@ -7,7 +7,7 @@ export function useProjects() {
   return useQuery({
     queryKey: queryKeys.projects,
     queryFn: ({ signal }) => projectService.list(signal),
-    enabled: false,
+    // Phase 8B: enabled by default; callers can override.
   });
 }
 
@@ -15,7 +15,7 @@ export function useProject(id: string | undefined) {
   return useQuery({
     queryKey: id ? queryKeys.project(id) : queryKeys.projects,
     queryFn: ({ signal }) => projectService.get(id as string, signal),
-    enabled: false,
+    // Phase 8B: enabled by default; callers can override.
   });
 }
 

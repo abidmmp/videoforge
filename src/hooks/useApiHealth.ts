@@ -8,6 +8,6 @@ export function useApiHealth(pollMs = 30_000) {
     queryFn: ({ signal }) => settingsService.health(signal),
     refetchInterval: pollMs,
     staleTime: 10_000,
-    enabled: false, // Phase 8B will flip this on at the provider level.
+    // Phase 8B: enabled by default; callers can override. // Phase 8B will flip this on at the provider level.
   });
 }

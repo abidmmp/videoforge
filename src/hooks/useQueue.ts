@@ -7,6 +7,6 @@ export function useQueue(pollMs = 5_000) {
     queryKey: queryKeys.tasks,
     queryFn: ({ signal }) => renderService.list(signal),
     refetchInterval: pollMs,
-    enabled: false,
+    // Phase 8B: enabled by default; callers can override.
   });
 }
