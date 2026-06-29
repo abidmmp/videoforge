@@ -16,6 +16,8 @@ import type {
 import {
   DEFAULT_VIDEO_SETTINGS, DEFAULT_AUDIO_SETTINGS, DEFAULT_SUBTITLE_SETTINGS,
 } from "@/lib/constants";
+import { SEED_RENDER_QUEUE, SEED_OUTPUTS, SEED_NOTIFICATIONS } from "@/lib/render-pipeline";
+
 
 // ── Shape ──────────────────────────────────────────────────────────────────
 export interface AppState {
