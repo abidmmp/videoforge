@@ -16,6 +16,8 @@ import type {
 import {
   DEFAULT_VIDEO_SETTINGS, DEFAULT_AUDIO_SETTINGS, DEFAULT_SUBTITLE_SETTINGS,
 } from "@/lib/constants";
+import { SEED_RENDER_QUEUE, SEED_OUTPUTS, SEED_NOTIFICATIONS } from "@/lib/render-pipeline";
+
 
 // ── Shape ──────────────────────────────────────────────────────────────────
 export interface AppState {
@@ -52,8 +54,8 @@ const INITIAL: AppState = {
   audioSettings: DEFAULT_AUDIO_SETTINGS as AudioSettings,
   subtitleSettings: DEFAULT_SUBTITLE_SETTINGS as unknown as SubtitleSettings,
   recentProjects: [],
-  recentOutputs: [],
-  notifications: [],
+  recentOutputs: SEED_OUTPUTS,
+  notifications: SEED_NOTIFICATIONS,
   preferences: {
     theme: "light",
     language: "en-US",
@@ -64,7 +66,7 @@ const INITIAL: AppState = {
     reduceMotion: false,
     developerMode: false,
   },
-  renderQueue: [],
+  renderQueue: SEED_RENDER_QUEUE,
   isDirty: false,
   isSaving: false,
   lastSavedAt: null,

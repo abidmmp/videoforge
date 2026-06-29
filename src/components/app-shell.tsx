@@ -5,7 +5,7 @@ import {
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
   CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
-  AudioLines,
+  AudioLines, Rocket, ListVideo,
 } from "lucide-react";
 import { useState, useRef, useEffect, type ReactNode } from "react";
 
@@ -21,6 +21,8 @@ const navMain = [
   { icon: LayoutTemplate, label: "Templates", to: "/templates" },
   { icon: AudioLines, label: "Voices", to: "/voices" },
   { icon: Music2, label: "Music", to: "/music" },
+  { icon: Rocket, label: "Render Studio", to: "/render", badge: "PRO" },
+  { icon: ListVideo, label: "Render Queue", to: "/queue" },
   { icon: FileVideo, label: "Outputs", to: "/outputs", badge: "3" },
 ];
 
