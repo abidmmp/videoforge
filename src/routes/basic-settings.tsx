@@ -8,7 +8,8 @@ import {
   RefreshCw, Save, RotateCcw, Plug, Download, Upload, DatabaseBackup,
   History, Plus, Trash2, Pencil, Sparkles, ShieldCheck, Activity, Gauge,
   Video, Mic2, Subtitles, Film, CircleCheck, CircleAlert, CircleDashed,
-  Wifi, Clock, Zap, Info,
+  Wifi, Clock, Zap, Info, ExternalLink, GripVertical, Lock, ArrowUpDown,
+  Image as ImageIcon, Bot, Globe, FlaskConical, Power, PowerOff,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
