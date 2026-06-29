@@ -134,7 +134,7 @@ function QueueRow({ task, index, onAct }: { task: RenderTask; index: number; onA
       </div>
 
       <div>
-        <StatusBadge tone={tone === "danger" ? "error" : tone}>{task.status.toUpperCase()}</StatusBadge>
+        <StatusBadge tone={tone === "danger" ? "error" : tone === "primary" ? "info" : tone}>{task.status.toUpperCase()}</StatusBadge>
       </div>
 
       <div>
