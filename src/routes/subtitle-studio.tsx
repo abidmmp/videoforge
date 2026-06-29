@@ -89,6 +89,7 @@ type TextCase = "Normal" | "UPPERCASE" | "lowercase" | "Sentence";
 function SubtitleStudioPage() {
   // Enable
   const [enabled, setEnabled] = useState(true);
+  const [tab, setTab] = useState<Tab>("style");
 
   // Font
   const [fontQuery, setFontQuery] = useState("");
