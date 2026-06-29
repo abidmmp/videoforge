@@ -4,13 +4,14 @@ import {
   LayoutTemplate, Mic2, Music2, FileVideo, KeyRound, Languages, ScrollText,
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
-  CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check,
+  CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
 } from "lucide-react";
 import { useState, useRef, useEffect, type ReactNode } from "react";
 
 const navMain = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/" },
   { icon: Video, label: "Create Video", to: "/create", badge: "AI" },
+  { icon: Clapperboard, label: "Video Settings", to: "/video-settings", badge: "NEW" },
   { icon: FolderKanban, label: "Projects", to: "/projects", badge: "24" },
   { icon: Subtitles, label: "Subtitle Studio", to: "/subtitle-studio" },
   { icon: Sparkles, label: "Video Effects", to: "/effects" },
