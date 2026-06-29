@@ -197,7 +197,7 @@ function SubtitleStudioPage() {
                   <div className="text-[12px] text-muted-foreground mt-0.5">Autosaves on every change. Compatible with MoneyPrinterTurbo subtitle.engine.</div>
                 </div>
               </div>
-              <Toggle defaultOn={enabled} onChange={setEnabled} />
+              <Toggle checked={enabled} onChange={setEnabled} />
             </div>
           </SectionCard>
 
@@ -350,7 +350,7 @@ function SubtitleStudioPage() {
                 </div>
                 <div className="space-y-3">
                   <Field label={`Font size · ${fontSize}px`}><Slider value={fontSize} min={16} max={140} onChange={setFontSize} /></Field>
-                  <Field label={`Font weight · ${fontWeight}`}><Slider value={fontWeight} min={100} max={900} step={100} onChange={setFontWeight} /></Field>
+                  <Field label={`Font weight · ${fontWeight}`}><Slider value={fontWeight} min={100} max={900} onChange={(v) => setFontWeight(Math.round(v/100)*100)} /></Field>
                   <Field label={`Letter spacing · ${letterSpacing / 10}px`}><Slider value={letterSpacing} min={-20} max={80} onChange={setLetterSpacing} /></Field>
                   <Field label={`Line height · ${lineHeight}%`}><Slider value={lineHeight} min={80} max={200} onChange={setLineHeight} /></Field>
                 </div>
@@ -385,7 +385,7 @@ function SubtitleStudioPage() {
                 <div className="grid grid-cols-3 gap-2 pt-1">
                   {["Glow Stroke", "Soft Stroke", "Double Stroke"].map(s => (
                     <div key={s} className="h-12 rounded-xl border border-dashed border-border grid place-items-center text-[11px] font-semibold text-muted-foreground">
-                      {s} <Pill tone="default" className="ml-2">Soon</Pill>
+                      {s} <span className="ml-2 text-[9px] font-bold text-muted-foreground">SOON</span>
                     </div>
                   ))}
                 </div>
@@ -396,7 +396,7 @@ function SubtitleStudioPage() {
             <SectionCard
               title="Subtitle Background"
               subtitle="Caption pill behind text"
-              right={<Toggle defaultOn={bgEnabled} onChange={setBgEnabled} />}
+              right={<Toggle checked={bgEnabled} onChange={setBgEnabled} />}
             >
               <div className={`pt-4 grid grid-cols-2 gap-5 ${bgEnabled ? "" : "opacity-50 pointer-events-none"}`}>
                 <div className="space-y-3">
