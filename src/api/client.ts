@@ -40,9 +40,10 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const config = error.config as (AxiosRequestConfig & { __retryCount?: number }) | undefined;
     if (config && shouldRetry(error)) {
-      config.__retryCount = (config.__retryCount ?? 0) + 1;
-      if (config.__retryCount <= env.maxRetries) {
-        await new Promise((r) => setTimeout(r, backoffDelay(config.__retryCount)));
+      const next = (config.__retryCount ?? 0) + 1;
+      config.__retryCount = next;
+      if (next <= env.maxRetries) {
+        await new Promise((r) => setTimeout(r, backoffDelay(next)));
         return apiClient.request(config);
       }
     }
