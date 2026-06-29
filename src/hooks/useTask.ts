@@ -6,6 +6,6 @@ export function useTask(id: string | undefined) {
   return useQuery({
     queryKey: id ? queryKeys.task(id) : queryKeys.tasks,
     queryFn: ({ signal }) => renderService.get(id as string, signal),
-    // Phase 8B: enabled by default; callers can override.
+    enabled: !!id,
   });
 }
