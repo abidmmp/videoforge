@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoicesRouteImport } from './routes/voices'
+import { Route as VideoSettingsRouteImport } from './routes/video-settings'
 import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SubtitleStudioRouteImport } from './routes/subtitle-studio'
 import { Route as SignupRouteImport } from './routes/signup'
@@ -35,6 +36,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VoicesRoute = VoicesRouteImport.update({
   id: '/voices',
   path: '/voices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideoSettingsRoute = VideoSettingsRouteImport.update({
+  id: '/video-settings',
+  path: '/video-settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TemplatesRoute = TemplatesRouteImport.update({
@@ -165,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
   '/templates': typeof TemplatesRoute
+  '/video-settings': typeof VideoSettingsRoute
   '/voices': typeof VoicesRoute
 }
 export interface FileRoutesByTo {
@@ -189,6 +196,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
   '/templates': typeof TemplatesRoute
+  '/video-settings': typeof VideoSettingsRoute
   '/voices': typeof VoicesRoute
 }
 export interface FileRoutesById {
@@ -214,6 +222,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
   '/templates': typeof TemplatesRoute
+  '/video-settings': typeof VideoSettingsRoute
   '/voices': typeof VoicesRoute
 }
 export interface FileRouteTypes {
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/subtitle-studio'
     | '/templates'
+    | '/video-settings'
     | '/voices'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -264,6 +274,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/subtitle-studio'
     | '/templates'
+    | '/video-settings'
     | '/voices'
   id:
     | '__root__'
@@ -288,6 +299,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/subtitle-studio'
     | '/templates'
+    | '/video-settings'
     | '/voices'
   fileRoutesById: FileRoutesById
 }
@@ -313,6 +325,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   SubtitleStudioRoute: typeof SubtitleStudioRoute
   TemplatesRoute: typeof TemplatesRoute
+  VideoSettingsRoute: typeof VideoSettingsRoute
   VoicesRoute: typeof VoicesRoute
 }
 
@@ -323,6 +336,13 @@ declare module '@tanstack/react-router' {
       path: '/voices'
       fullPath: '/voices'
       preLoaderRoute: typeof VoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/video-settings': {
+      id: '/video-settings'
+      path: '/video-settings'
+      fullPath: '/video-settings'
+      preLoaderRoute: typeof VideoSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/templates': {
@@ -497,6 +517,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   SubtitleStudioRoute: SubtitleStudioRoute,
   TemplatesRoute: TemplatesRoute,
+  VideoSettingsRoute: VideoSettingsRoute,
   VoicesRoute: VoicesRoute,
 }
 export const routeTree = rootRouteImport

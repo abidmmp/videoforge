@@ -9,7 +9,7 @@ import {
   Image as ImageIcon, Search, ArrowRight, Play, Check, X, Info, Save,
   Smartphone, Monitor, Square, ChevronRight, Brain, Filter, Repeat, Zap,
   Tv, Activity, FileVideo, Settings2, Eye, Plus, ListChecks, AlertCircle,
-  Lock, CloudUpload, Crown, BadgeCheck, Maximize2,
+  Lock, CloudUpload, Crown, BadgeCheck, Maximize2, FileText,
 } from "lucide-react";
 
 export const Route = createFileRoute("/video-settings")({
