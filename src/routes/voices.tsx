@@ -34,6 +34,12 @@ function VoicesPage() {
         subtitle="120+ AI voices across 30 languages. Preview any voice before you commit."
         actions={<><GhostButton><Sparkles className="w-4 h-4" /> Clone My Voice</GhostButton></>}
       />
+      <StudioRedirectBanner
+        title="Looking for the full voice workflow?"
+        description="Audio Studio is the source of truth for TTS, voice picking, controls, preview and BGM. This page is a quick library browser."
+        to="/audio-studio"
+        ctaLabel="Open Audio Studio"
+      />
 
       <div className="flex flex-wrap gap-2 mb-4">
         {filters.map(x => (

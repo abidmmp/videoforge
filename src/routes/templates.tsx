@@ -32,6 +32,12 @@ function TemplatesPage() {
         subtitle="Production-grade starting points. Tap one to begin a project in seconds."
         actions={<><GhostButton><Plus className="w-4 h-4" /> Save as Template</GhostButton></>}
       />
+      <StudioRedirectBanner
+        title="Subtitle templates with full styling live in Subtitle Studio"
+        description="100+ caption templates, animations, karaoke, themes and brand kits — all editable in Subtitle Studio."
+        to="/subtitle-studio"
+        ctaLabel="Open Subtitle Studio"
+      />
 
       <div className="rounded-2xl bg-card border border-border p-2 flex items-center gap-1 mb-5 shadow-card">
         {tabs.map(t => (

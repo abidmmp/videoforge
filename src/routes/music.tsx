@@ -13,6 +13,12 @@ export const Route = createFileRoute("/music")({
         subtitle="Royalty-free tracks tuned for short-form and long-form video."
         actions={<><GhostButton><Upload className="w-4 h-4" /> Upload Track</GhostButton></>}
       />
+      <StudioRedirectBanner
+        title="Pick BGM inside Audio Studio for the live mix"
+        description="This page is a track library. Volume, fade, loop, trim and waveform preview live in Audio Studio."
+        to="/audio-studio"
+        ctaLabel="Open Audio Studio"
+      />
       <div className="flex flex-wrap gap-2 mb-4">
         {["All", "Cinematic", "Lo-fi", "Epic", "Calm", "Energetic", "Corporate", "Hip-hop", "Ambient"].map((g, i) => (
           <button key={g} className={`px-3 h-9 rounded-xl text-[12px] font-semibold transition ${i === 0 ? "bg-brand-gradient text-white shadow-brand" : "bg-card border border-border text-muted-foreground hover:bg-secondary"}`}>{g}</button>

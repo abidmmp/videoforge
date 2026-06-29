@@ -41,6 +41,12 @@ function EffectsPage() {
         subtitle="A growing collection of cinematic LUTs, overlays and motion effects."
         actions={<><GhostButton><Download className="w-4 h-4" /> Import .cube</GhostButton></>}
       />
+      <StudioRedirectBanner
+        title="Transitions and overlays are configured in Video Settings"
+        description="This page is a visual library. Apply transitions, encoder, overlays and effects from Video Settings."
+        to="/video-settings"
+        ctaLabel="Open Video Settings"
+      />
 
       <div className="flex gap-5">
         <aside className="w-56 shrink-0">
