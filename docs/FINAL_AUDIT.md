@@ -172,14 +172,35 @@ logic + tests land.
 
 | Dimension | Completion |
 |---|---|
-| **Overall project completion** | **62 %** |
-| Frontend UI completion | **95 %** |
+| **Overall project completion** | **64 %** |
+| Frontend UI completion | **97 %** |
 | Frontend state / store completion | **90 %** |
 | Backend readiness (server exists, FE not wired) | **35 %** |
 | Backend integration (FE↔BE live) | **0 %** |
 | Test coverage | **0 %** |
-| Documentation quality | **95 %** |
-| Production readiness | **45 %** |
+| Documentation quality | **96 %** |
+| Production readiness | **48 %** |
+
+---
+
+## Phase 8 — Final Frontend Quality Pass (this revision)
+
+**Critical fix**
+- Resolved SSR hydration failure caused by `<button>`-inside-`<button>` nesting
+  in `SectionCard` header. The collapsible toggle was wrapping the `right`
+  slot, which routinely contained action buttons (e.g. *Add key* on API
+  Manager). Refactored to side-by-side title-button + right-slot; preserves
+  visual design, removes invalid DOM nesting, and clears the hydration
+  mismatch reported on `/basic-settings`.
+- Typecheck green (`tsgo --noEmit`).
+
+**Status of broader audit items** (carried into Phase A backend wiring):
+- Seed data still present (`SEED_*`); flagged P0, removed when API lands.
+- Per-route `errorComponent` / `notFoundComponent` not yet added.
+- WebSocket lifecycle UI not yet implemented.
+- Test suite + CI not yet introduced.
+- Large route files (`create.tsx`, `video-settings.tsx`, etc.) still pending
+  extraction; acceptable until business logic lands on top.
 
 ---
 
