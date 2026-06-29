@@ -3,12 +3,10 @@
 Status legend: 🟥 **Pending** · 🟧 **Ready** (scaffolded, not wired) ·
 🟦 **Connected** (calling backend) · 🟩 **Verified** (end-to-end test).
 
-After Phase 8A every row is **Ready** unless noted otherwise. Phase 8B
-will move rows to Connected/Verified.
-
----
-
-## Services
+After **Phase 8B** the transport, providers, and hook layer are
+**Connected** at the React root. Per-page binding (Phase 8C / "Phase 9")
+will move the page rows below from Pending to Connected one route at a
+time as the MoneyPrinterTurbo endpoints come online.
 
 | Service | File | Status |
 |---|---|---|
@@ -48,8 +46,8 @@ will move rows to Connected/Verified.
 | Error normalizer | `src/utils/error-handler.ts` | 🟧 |
 | Retry policy | `src/utils/retry.ts` | 🟧 |
 | Env / feature flags | `src/api/env.ts`, `.env.example` | 🟧 |
-| `<ApiProvider>` | `src/providers/ApiProvider.tsx` | 🟧 (not mounted) |
-| `<WebSocketProvider>` | `src/providers/WebSocketProvider.tsx` | 🟧 (not mounted) |
+| `<ApiProvider>` | `src/providers/ApiProvider.tsx` | 🟦 (mounted in `__root.tsx`) |
+| `<WebSocketProvider>` | `src/providers/WebSocketProvider.tsx` | 🟦 (mounted in `__root.tsx`) |
 
 ## Pages (binding status)
 

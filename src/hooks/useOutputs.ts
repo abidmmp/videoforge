@@ -6,6 +6,6 @@ export function useOutputs() {
   return useQuery({
     queryKey: queryKeys.outputs,
     queryFn: ({ signal }) => renderService.outputs(signal),
-    enabled: false,
+    // Phase 8B: enabled by default; callers can override.
   });
 }
