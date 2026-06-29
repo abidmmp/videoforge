@@ -54,8 +54,8 @@ const INITIAL: AppState = {
   audioSettings: DEFAULT_AUDIO_SETTINGS as AudioSettings,
   subtitleSettings: DEFAULT_SUBTITLE_SETTINGS as unknown as SubtitleSettings,
   recentProjects: [],
-  recentOutputs: [],
-  notifications: [],
+  recentOutputs: SEED_OUTPUTS,
+  notifications: SEED_NOTIFICATIONS,
   preferences: {
     theme: "light",
     language: "en-US",
