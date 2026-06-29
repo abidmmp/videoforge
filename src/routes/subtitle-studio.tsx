@@ -7,8 +7,22 @@ import {
   Type, Sparkles, Save, Download, Search, Star, Clock, Bold, Italic, Underline,
   AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, Move,
   Copy, ClipboardPaste, Undo2, Redo2, RotateCcw, Eye, EyeOff, Check, Palette, Wand2,
-  CheckCircle2, Accessibility, Gauge,
+  CheckCircle2, Accessibility, Gauge, Sliders, LayoutTemplate, Zap, Mic2, Brush, FolderHeart,
 } from "lucide-react";
+import {
+  TemplateGallerySection, AnimationStudioSection, KaraokeHighlightSection,
+  ColorThemesSection, BrandKitSection, AIStyleRecommendationSection,
+} from "@/components/subtitle-templates";
+
+type Tab = "style" | "templates" | "animations" | "karaoke" | "themes" | "brand";
+const TABS: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: "style", label: "Manual Style", icon: Sliders },
+  { id: "templates", label: "Templates", icon: LayoutTemplate },
+  { id: "animations", label: "Animations", icon: Zap },
+  { id: "karaoke", label: "Karaoke", icon: Mic2 },
+  { id: "themes", label: "Color Themes", icon: Brush },
+  { id: "brand", label: "Brand Kit", icon: FolderHeart },
+];
 
 export const Route = createFileRoute("/subtitle-studio")({
   head: () => ({ meta: [{ title: "Subtitle Studio — VideoForge AI" }] }),
