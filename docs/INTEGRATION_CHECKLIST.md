@@ -46,8 +46,8 @@ time as the MoneyPrinterTurbo endpoints come online.
 | Error normalizer | `src/utils/error-handler.ts` | 🟧 |
 | Retry policy | `src/utils/retry.ts` | 🟧 |
 | Env / feature flags | `src/api/env.ts`, `.env.example` | 🟧 |
-| `<ApiProvider>` | `src/providers/ApiProvider.tsx` | 🟧 (not mounted) |
-| `<WebSocketProvider>` | `src/providers/WebSocketProvider.tsx` | 🟧 (not mounted) |
+| `<ApiProvider>` | `src/providers/ApiProvider.tsx` | 🟦 (mounted in `__root.tsx`) |
+| `<WebSocketProvider>` | `src/providers/WebSocketProvider.tsx` | 🟦 (mounted in `__root.tsx`) |
 
 ## Pages (binding status)
 
