@@ -335,15 +335,8 @@ function BasicSettingsPage() {
           </SectionCard>
 
           {/* VIDEO SOURCE APIs */}
-          <SectionCard
-            title="Video Source APIs"
-            subtitle="Stock footage providers used to assemble your B-roll."
-            right={<Pill tone="success">{VIDEO_PROVIDERS.filter(v => !v.soon).length} active</Pill>}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4">
-              {VIDEO_PROVIDERS.map(v => <VideoProviderCard key={v.id} v={v} />)}
-            </div>
-          </SectionCard>
+          <VideoSourceHub />
+
 
           {/* API MANAGEMENT */}
           <ApiManagementCard />
