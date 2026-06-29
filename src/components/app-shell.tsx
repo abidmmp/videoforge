@@ -8,6 +8,7 @@ import {
   AudioLines, Rocket, ListVideo,
 } from "lucide-react";
 import { useState, useRef, useEffect, type ReactNode } from "react";
+import { CommandPalette, useCommandPalette } from "@/components/command-palette";
 
 const navMain = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/" },
@@ -117,21 +118,26 @@ function NavItem({ icon: Icon, label, to, active, badge }: any) {
 }
 
 function TopBar({ maxWidth }: { maxWidth: number }) {
+  const { open, setOpen } = useCommandPalette();
   return (
     <div className="sticky top-0 z-30 backdrop-blur-xl bg-background/70 border-b border-border/60">
       <div className="px-8 h-[68px] flex items-center gap-3 mx-auto" style={{ maxWidth }}>
-        <div className="flex-1 max-w-xl relative">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Open command palette (Cmd or Ctrl + K)"
+          className="flex-1 max-w-xl relative h-11 group text-left"
+        >
           <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
-            placeholder="Search projects, voices, templates…"
-            className="w-full h-11 pl-11 pr-20 rounded-xl bg-card border border-border text-[13.5px] placeholder:text-muted-foreground focus:outline-none focus:border-primary/30 focus:ring-4 focus:ring-primary/5 transition"
-          />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-muted-foreground bg-secondary px-2 py-1 rounded-md font-medium">
-            <Command className="w-3 h-3" /> F
-          </div>
-        </div>
+          <span className="block w-full h-11 pl-11 pr-24 rounded-xl bg-card border border-border text-[13.5px] text-muted-foreground leading-[44px] group-hover:border-primary/30 transition truncate">
+            Search projects, voices, templates…
+          </span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-muted-foreground bg-secondary px-2 py-1 rounded-md font-medium">
+            <Command className="w-3 h-3" /> K
+          </span>
+        </button>
 
-        <div className="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-card border border-border">
+        <div className="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-card border border-border" title="System status: all services healthy">
           <div className="relative">
             <div className="w-2 h-2 rounded-full bg-success" />
             <div className="absolute inset-0 w-2 h-2 rounded-full bg-success animate-ping opacity-60" />
@@ -150,6 +156,7 @@ function TopBar({ maxWidth }: { maxWidth: number }) {
 
         <UserMenu />
       </div>
+      <CommandPalette open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }

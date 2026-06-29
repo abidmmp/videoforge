@@ -5,10 +5,10 @@
 
 import { Link } from "@tanstack/react-router";
 import {
-  Sparkles, ArrowRight, Inbox, Loader2, Check, CircleAlert,
+  Sparkles, ArrowRight, Inbox, Loader2, Check, CircleAlert, HelpCircle,
   type LucideIcon,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { AppShell, PageHeader, GhostButton, PrimaryButton } from "@/components/app-shell";
 
 // ── Status badge ───────────────────────────────────────────────────────────
@@ -82,6 +82,44 @@ export function SaveIndicator({
       <Check className="w-3 h-3" /> Saved{lastSavedAt ? ` · ${new Date(lastSavedAt).toLocaleTimeString()}` : ""}
     </span>
   );
+}
+
+// ── Help tip — inline tooltip with optional "Learn more" link ─────────────
+export function HelpTip({
+  label, learnMoreHref,
+}: { label: string; learnMoreHref?: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span className="relative inline-flex">
+      <button
+        type="button"
+        aria-label={label}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        className="w-4 h-4 grid place-items-center rounded-full text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition"
+      >
+        <HelpCircle className="w-3.5 h-3.5" />
+      </button>
+      {open && (
+        <span
+          role="tooltip"
+          className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+6px)] z-50 w-[240px] rounded-lg bg-foreground text-background text-[11px] leading-snug font-medium px-3 py-2 shadow-card-lg"
+        >
+          {label}
+          {learnMoreHref && (
+            <a href={learnMoreHref} target="_blank" rel="noreferrer" className="block mt-1 text-[10.5px] underline opacity-80 hover:opacity-100">Learn more →</a>
+          )}
+        </span>
+      )}
+    </span>
+  );
+}
+
+// ── Skeleton — generic shimmer block ───────────────────────────────────────
+export function Skeleton({ className = "" }: { className?: string }) {
+  return <div className={`animate-pulse rounded-lg bg-secondary/70 ${className}`} />;
 }
 
 // ── "Source of truth" redirect banner ──────────────────────────────────────
