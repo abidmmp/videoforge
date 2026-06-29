@@ -27,6 +27,7 @@ import { Route as EffectsRouteImport } from './routes/effects'
 import { Route as DeveloperRouteImport } from './routes/developer'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as BasicSettingsRouteImport } from './routes/basic-settings'
+import { Route as AudioStudioRouteImport } from './routes/audio-studio'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as ApiManagerRouteImport } from './routes/api-manager'
 import { Route as AccountRouteImport } from './routes/account'
@@ -123,6 +124,11 @@ const BasicSettingsRoute = BasicSettingsRouteImport.update({
   path: '/basic-settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AudioStudioRoute = AudioStudioRouteImport.update({
+  id: '/audio-studio',
+  path: '/audio-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsRoute = AssetsRouteImport.update({
   id: '/assets',
   path: '/assets',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/api-manager': typeof ApiManagerRoute
   '/assets': typeof AssetsRoute
+  '/audio-studio': typeof AudioStudioRoute
   '/basic-settings': typeof BasicSettingsRoute
   '/create': typeof CreateRoute
   '/developer': typeof DeveloperRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/api-manager': typeof ApiManagerRoute
   '/assets': typeof AssetsRoute
+  '/audio-studio': typeof AudioStudioRoute
   '/basic-settings': typeof BasicSettingsRoute
   '/create': typeof CreateRoute
   '/developer': typeof DeveloperRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/api-manager': typeof ApiManagerRoute
   '/assets': typeof AssetsRoute
+  '/audio-studio': typeof AudioStudioRoute
   '/basic-settings': typeof BasicSettingsRoute
   '/create': typeof CreateRoute
   '/developer': typeof DeveloperRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/api-manager'
     | '/assets'
+    | '/audio-studio'
     | '/basic-settings'
     | '/create'
     | '/developer'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/api-manager'
     | '/assets'
+    | '/audio-studio'
     | '/basic-settings'
     | '/create'
     | '/developer'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/api-manager'
     | '/assets'
+    | '/audio-studio'
     | '/basic-settings'
     | '/create'
     | '/developer'
@@ -309,6 +321,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   ApiManagerRoute: typeof ApiManagerRoute
   AssetsRoute: typeof AssetsRoute
+  AudioStudioRoute: typeof AudioStudioRoute
   BasicSettingsRoute: typeof BasicSettingsRoute
   CreateRoute: typeof CreateRoute
   DeveloperRoute: typeof DeveloperRoute
@@ -457,6 +470,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BasicSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/audio-studio': {
+      id: '/audio-studio'
+      path: '/audio-studio'
+      fullPath: '/audio-studio'
+      preLoaderRoute: typeof AudioStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets': {
       id: '/assets'
       path: '/assets'
@@ -501,6 +521,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   ApiManagerRoute: ApiManagerRoute,
   AssetsRoute: AssetsRoute,
+  AudioStudioRoute: AudioStudioRoute,
   BasicSettingsRoute: BasicSettingsRoute,
   CreateRoute: CreateRoute,
   DeveloperRoute: DeveloperRoute,
