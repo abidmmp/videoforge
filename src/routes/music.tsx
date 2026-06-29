@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, GhostButton, Pill, Input } from "@/components/app-shell";
+import { StudioRedirectBanner } from "@/components/shared";
 import { Search, Play, Heart, Upload, Music2 } from "lucide-react";
 
 export const Route = createFileRoute("/music")({
@@ -11,6 +12,12 @@ export const Route = createFileRoute("/music")({
         title="Background Music"
         subtitle="Royalty-free tracks tuned for short-form and long-form video."
         actions={<><GhostButton><Upload className="w-4 h-4" /> Upload Track</GhostButton></>}
+      />
+      <StudioRedirectBanner
+        title="Pick BGM inside Audio Studio for the live mix"
+        description="This page is a track library. Volume, fade, loop, trim and waveform preview live in Audio Studio."
+        to="/audio-studio"
+        ctaLabel="Open Audio Studio"
       />
       <div className="flex flex-wrap gap-2 mb-4">
         {["All", "Cinematic", "Lo-fi", "Epic", "Calm", "Energetic", "Corporate", "Hip-hop", "Ambient"].map((g, i) => (

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, GhostButton, Pill, Input } from "@/components/app-shell";
+import { StudioRedirectBanner } from "@/components/shared";
 import { Search, Star, Download, Sparkles } from "lucide-react";
 import { useState } from "react";
 
@@ -39,6 +40,12 @@ function EffectsPage() {
         title="Video Effects Library"
         subtitle="A growing collection of cinematic LUTs, overlays and motion effects."
         actions={<><GhostButton><Download className="w-4 h-4" /> Import .cube</GhostButton></>}
+      />
+      <StudioRedirectBanner
+        title="Transitions and overlays are configured in Video Settings"
+        description="This page is a visual library. Apply transitions, encoder, overlays and effects from Video Settings."
+        to="/video-settings"
+        ctaLabel="Open Video Settings"
       />
 
       <div className="flex gap-5">
