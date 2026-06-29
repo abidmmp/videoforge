@@ -218,8 +218,7 @@ function SubtitleStudioPage() {
             </>
           )}
           {tab === "style" && (
-          <></>
-          )}
+          <>
           {/* ENABLE */}
           <SectionCard
             title="Subtitle Engine"
