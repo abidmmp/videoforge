@@ -12,6 +12,7 @@ const navMain = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/" },
   { icon: Video, label: "Create Video", to: "/create", badge: "AI" },
   { icon: Clapperboard, label: "Video Settings", to: "/video-settings", badge: "NEW" },
+  { icon: Mic2, label: "Audio Studio", to: "/audio-studio", badge: "NEW" },
   { icon: FolderKanban, label: "Projects", to: "/projects", badge: "24" },
   { icon: Subtitles, label: "Subtitle Studio", to: "/subtitle-studio" },
   { icon: Sparkles, label: "Video Effects", to: "/effects" },
