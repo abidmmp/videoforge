@@ -504,63 +504,355 @@ function QuickAction({ icon: Icon, label, hint }: any) {
   );
 }
 
-function VideoProviderCard({ v }: { v: VideoProv }) {
+function VideoSourceHub() {
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<FilterKey>("all");
+  const [sort, setSort] = useState<SortKey>("popularity");
+  const [enabled, setEnabled] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(VIDEO_PROVIDERS.map(p => [p.id, !p.soon && ["pexels","pixabay"].includes(p.id)]))
+  );
+  const [order, setOrder] = useState<string[]>(FALLBACK_DEFAULT);
+  const [dragId, setDragId] = useState<string | null>(null);
+
+  const activeCount = Object.values(enabled).filter(Boolean).length;
+  const connectedCount = VIDEO_PROVIDERS.filter(p => !p.soon && enabled[p.id]).length;
+
+  const list = useMemo(() => {
+    let arr = VIDEO_PROVIDERS.filter(p => {
+      if (query && !p.name.toLowerCase().includes(query.toLowerCase()) && !p.desc.toLowerCase().includes(query.toLowerCase())) return false;
+      switch (filter) {
+        case "active":    return !p.soon;
+        case "connected": return !p.soon && enabled[p.id];
+        case "video":     return p.kind === "video" || p.kind === "both";
+        case "image":     return p.kind === "image" || p.kind === "both";
+        case "ai":        return p.cat === "ai";
+        case "free":      return !!p.free;
+        default:          return true;
+      }
+    });
+    arr = [...arr].sort((a, b) => {
+      switch (sort) {
+        case "free":    return Number(!!b.free) - Number(!!a.free) || (b.popularity ?? 0) - (a.popularity ?? 0);
+        case "quality": return (b.quality ?? 0) - (a.quality ?? 0);
+        case "recent":  return (b.addedAt ?? "").localeCompare(a.addedAt ?? "");
+        default:        return (b.popularity ?? 0) - (a.popularity ?? 0);
+      }
+    });
+    return arr;
+  }, [query, filter, sort, enabled]);
+
+  const setAll = (on: boolean) =>
+    setEnabled(prev => {
+      const next = { ...prev };
+      for (const p of VIDEO_PROVIDERS) if (!p.soon) next[p.id] = on;
+      return next;
+    });
+
+  const move = (from: number, to: number) => {
+    if (to < 0 || to >= order.length || from === to) return;
+    setOrder(o => {
+      const a = [...o];
+      const [it] = a.splice(from, 1);
+      a.splice(to, 0, it);
+      return a;
+    });
+  };
+
+  const onDrop = (targetId: string) => {
+    if (!dragId || dragId === targetId) return;
+    const from = order.indexOf(dragId);
+    const to = order.indexOf(targetId);
+    if (from === -1 || to === -1) return;
+    move(from, to);
+    setDragId(null);
+  };
+
+  const filters: { key: FilterKey; label: string; icon: any }[] = [
+    { key: "all",       label: "All",            icon: Globe },
+    { key: "active",    label: "Only Active",    icon: Power },
+    { key: "connected", label: "Only Connected", icon: ShieldCheck },
+    { key: "video",     label: "Only Video",     icon: Video },
+    { key: "image",     label: "Only Images",    icon: ImageIcon },
+    { key: "ai",        label: "Only AI",        icon: Bot },
+    { key: "free",      label: "Only Free",      icon: Sparkles },
+  ];
+
+  return (
+    <SectionCard
+      title="Video Source APIs"
+      subtitle="Stock, AI and social providers used to assemble your B-roll."
+      right={
+        <div className="flex items-center gap-1.5">
+          <Pill tone="success"><Power className="w-3 h-3" /> {connectedCount} connected</Pill>
+          <Pill tone="primary">{activeCount} enabled</Pill>
+          <Pill tone="default">{VIDEO_PROVIDERS.length} total</Pill>
+        </div>
+      }
+    >
+      <div className="pt-4 space-y-4">
+        {/* SEARCH + SORT */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="relative flex-1 min-w-[220px]">
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search providers (Pexels, Runway, NASA…)"
+              className="!pl-9 !h-10 !text-[12.5px]"
+            />
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 h-10 rounded-xl border border-border bg-card">
+            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
+            <select
+              value={sort}
+              onChange={e => setSort(e.target.value as SortKey)}
+              className="bg-transparent text-[12px] font-semibold focus:outline-none cursor-pointer"
+            >
+              <option value="popularity">Sort: Popularity</option>
+              <option value="free">Sort: Free Quota</option>
+              <option value="quality">Sort: Quality</option>
+              <option value="recent">Sort: Recently Added</option>
+            </select>
+          </div>
+        </div>
+
+        {/* CATEGORY FILTERS */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {filters.map(f => {
+            const active = filter === f.key;
+            const Icon = f.icon;
+            return (
+              <button
+                key={f.key}
+                onClick={() => setFilter(f.key)}
+                className={`h-8 px-3 rounded-lg border text-[11.5px] font-bold flex items-center gap-1.5 transition ${active ? "border-primary/40 bg-accent text-primary" : "border-border bg-card hover:bg-secondary"}`}
+              >
+                <Icon className="w-3 h-3" /> {f.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* BULK ACTIONS */}
+        <div className="rounded-xl border border-border bg-secondary/30 p-2.5 flex items-center gap-1.5 flex-wrap">
+          <span className="text-[10.5px] font-bold tracking-[0.12em] text-muted-foreground uppercase mr-1">Bulk</span>
+          <BulkBtn icon={Power}     onClick={() => setAll(true)}>Enable All</BulkBtn>
+          <BulkBtn icon={PowerOff}  onClick={() => setAll(false)}>Disable All</BulkBtn>
+          <BulkBtn icon={Plug}>Test All</BulkBtn>
+          <BulkBtn icon={RefreshCw}>Refresh Usage</BulkBtn>
+          <BulkBtn icon={Upload}>Import Keys</BulkBtn>
+          <BulkBtn icon={Download}>Export Keys</BulkBtn>
+          <div className="ml-auto flex items-center gap-1.5 text-[10.5px] text-muted-foreground">
+            <Lock className="w-3 h-3" /> Keys masked & stored in encrypted vault
+          </div>
+        </div>
+
+        {/* PROVIDER GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {list.map(v => <VideoProviderCard key={v.id} v={v} enabled={!!enabled[v.id]} onToggle={() => setEnabled(s => ({ ...s, [v.id]: !s[v.id] }))} />)}
+          {list.length === 0 && (
+            <div className="md:col-span-2 p-8 text-center rounded-xl border border-dashed border-border text-[12px] text-muted-foreground">
+              <CircleDashed className="w-5 h-5 mx-auto mb-2 opacity-60" />
+              No providers match these filters.
+            </div>
+          )}
+        </div>
+
+        {/* FALLBACK ORDER */}
+        <div className="rounded-2xl border border-border bg-card p-4">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <div className="font-display font-bold text-[13.5px] flex items-center gap-2">
+                <FlaskConical className="w-3.5 h-3.5 text-primary" /> Fallback Priority
+              </div>
+              <div className="text-[11.5px] text-muted-foreground mt-0.5 leading-snug">
+                Drag to reorder. If a provider returns no results, the backend automatically tries the next one.
+              </div>
+            </div>
+            <button onClick={() => setOrder(FALLBACK_DEFAULT)} className="h-7 px-2.5 rounded-md border border-border text-[10.5px] font-bold hover:bg-secondary flex items-center gap-1 shrink-0">
+              <RotateCcw className="w-3 h-3" /> Reset
+            </button>
+          </div>
+          <div className="space-y-1.5">
+            {order.map((id, i) => {
+              const p = VIDEO_PROVIDERS.find(x => x.id === id);
+              if (!p) return null;
+              return (
+                <div
+                  key={id}
+                  draggable
+                  onDragStart={() => setDragId(id)}
+                  onDragOver={e => e.preventDefault()}
+                  onDrop={() => onDrop(id)}
+                  className={`flex items-center gap-2.5 p-2 rounded-xl border bg-card hover:border-primary/30 transition cursor-grab active:cursor-grabbing ${dragId === id ? "border-primary/40 bg-accent" : "border-border"}`}
+                >
+                  <GripVertical className="w-3.5 h-3.5 text-muted-foreground/60 shrink-0" />
+                  <div className="w-6 h-6 rounded-md bg-brand-gradient text-white text-[11px] font-display font-extrabold grid place-items-center shrink-0">{i + 1}</div>
+                  <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${p.tint} grid place-items-center text-white font-display font-extrabold text-[9.5px] shrink-0`}>{p.initials}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[12.5px] font-bold truncate">{p.name}</div>
+                    <div className="text-[10.5px] text-muted-foreground truncate">{p.desc}</div>
+                  </div>
+                  <div className="flex items-center gap-0.5 shrink-0">
+                    <IconBtn onClick={() => move(i, i - 1)} title="Move up">↑</IconBtn>
+                    <IconBtn onClick={() => move(i, i + 1)} title="Move down">↓</IconBtn>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </SectionCard>
+  );
+}
+
+function BulkBtn({ icon: Icon, children, onClick }: { icon: any; children: React.ReactNode; onClick?: () => void }) {
+  return (
+    <button onClick={onClick} className="h-8 px-2.5 rounded-lg border border-border bg-card text-[11.5px] font-bold hover:bg-secondary hover:border-primary/30 transition flex items-center gap-1.5">
+      <Icon className="w-3 h-3" /> {children}
+    </button>
+  );
+}
+
+function VideoProviderCard({ v, enabled, onToggle }: { v: VideoProv; enabled: boolean; onToggle: () => void }) {
   const [show, setShow] = useState(false);
   const [key, setKey] = useState(v.soon ? "" : "•••• •••• •••• 8jL2");
-  const connected = !v.soon && key.length > 0;
+  const [copied, setCopied] = useState(false);
+  const [testing, setTesting] = useState<"idle" | "loading" | "ok" | "err">("idle");
+  const connected = !v.soon && enabled && key.length > 0;
+
+  const handleCopy = async () => {
+    try { await navigator.clipboard.writeText(key); setCopied(true); setTimeout(() => setCopied(false), 1100); } catch {}
+  };
+  const handleTest = () => {
+    setTesting("loading");
+    setTimeout(() => setTesting(Math.random() > 0.15 ? "ok" : "err"), 900);
+  };
+
+  const catLabel: Record<ProviderCat, string> = { free: "Free", ai: "AI", future: "Social" };
+  const kindIcon = v.kind === "image" ? ImageIcon : v.kind === "both" ? Globe : Video;
+  const KindIcon = kindIcon;
+
   return (
-    <div className={`p-4 rounded-2xl border bg-card transition ${v.soon ? "border-dashed border-border opacity-75" : "border-border hover:border-primary/20"}`}>
+    <div className={`p-4 rounded-2xl border bg-card transition ${v.soon ? "border-dashed border-border opacity-80" : "border-border hover:border-primary/20"}`}>
       <div className="flex items-start gap-3 mb-3">
         <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${v.tint} grid place-items-center text-white font-display font-extrabold text-[11px] shrink-0`}>
           {v.initials}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <div className="font-display font-bold text-[14px]">{v.name}</div>
             {v.soon
               ? <Pill tone="default">Coming Soon</Pill>
-              : connected ? <Pill tone="success"><Check className="w-3 h-3" /> Connected</Pill>
+              : connected ? <Pill tone="success"><ShieldCheck className="w-3 h-3" /> Verified</Pill>
               : <Pill tone="warning">Not Connected</Pill>}
+            <Pill tone={v.cat === "ai" ? "primary" : v.cat === "future" ? "default" : "success"}>
+              <KindIcon className="w-3 h-3" /> {catLabel[v.cat]}
+            </Pill>
+            {v.free && <Pill tone="success">Free</Pill>}
           </div>
           <div className="text-[11.5px] text-muted-foreground mt-0.5 leading-snug">{v.desc}</div>
         </div>
-        {!v.soon && <Toggle checked={connected} />}
+        {!v.soon && <Toggle checked={connected} onChange={onToggle} />}
       </div>
 
       {!v.soon && (
         <>
+          {/* API KEY */}
           <div className="relative mb-2">
+            <KeyRound className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <Input
               type={show ? "text" : "password"}
               value={key}
               onChange={e => setKey(e.target.value)}
               placeholder="Paste API key"
-              className="!h-9 !pr-16 !text-[12px] font-mono"
+              className="!h-9 !pl-9 !pr-20 !text-[12px] font-mono"
             />
             <div className="absolute right-1 top-1/2 -translate-y-1/2 flex gap-0.5">
-              <IconBtn onClick={() => setShow(s => !s)} title={show ? "Hide" : "Show"}>
+              <IconBtn onClick={() => setShow(s => !s)} title={show ? "Hide key" : "Show key"}>
                 {show ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
               </IconBtn>
-              <IconBtn onClick={() => navigator.clipboard.writeText(key)} title="Copy"><Copy className="w-3 h-3" /></IconBtn>
+              <IconBtn onClick={handleCopy} title="Copy key">
+                {copied ? <Check className="w-3 h-3 text-success" /> : <Copy className="w-3 h-3" />}
+              </IconBtn>
             </div>
           </div>
 
+          {/* HEALTH GRID */}
+          <div className="grid grid-cols-4 gap-1.5 mb-2.5">
+            <Meta label="Status" value={connected ? "Online" : "Idle"} tone={connected ? "success" : "muted"} />
+            <Meta label="Latency" value={v.latencyMs ? `${v.latencyMs}ms` : "—"} />
+            <Meta label="API" value={v.apiVersion ?? "—"} />
+            <Meta label="Limit" value={v.dailyLimit ?? "—"} />
+          </div>
+          <div className="grid grid-cols-3 gap-1.5 mb-2.5">
+            <Meta label="Remaining" value={v.remaining ?? "—"} tone="primary" />
+            <Meta label="Monthly" value={v.monthly ?? "—"} />
+            <Meta label="Checked" value={v.lastChecked ?? "—"} />
+          </div>
+
+          {/* NOTES */}
+          <input
+            defaultValue={v.notes ?? ""}
+            placeholder="Add a note for this provider…"
+            className="w-full bg-transparent text-[11px] placeholder:text-muted-foreground focus:outline-none border-b border-transparent focus:border-border py-1 mb-2"
+          />
+
+          {/* ACTIONS */}
           <div className="flex items-center justify-between gap-2">
-            <div className="text-[10.5px] text-muted-foreground">
-              Usage: <span className="font-mono font-semibold text-foreground">{v.usage}</span>
-            </div>
-            <button className="h-8 px-3 rounded-lg border border-border text-[11px] font-bold hover:bg-secondary flex items-center gap-1">
-              <Plug className="w-3 h-3" /> Test
+            <a
+              href={v.docUrl ?? "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[11px] font-semibold text-primary hover:underline flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" /> Documentation
+            </a>
+            <button
+              onClick={handleTest}
+              disabled={testing === "loading"}
+              className={`h-8 px-3 rounded-lg text-[11px] font-bold flex items-center gap-1 transition ${
+                testing === "ok" ? "bg-success/10 text-success border border-success/20" :
+                testing === "err" ? "bg-destructive/10 text-destructive border border-destructive/20" :
+                testing === "loading" ? "bg-secondary text-muted-foreground border border-border" :
+                "border border-border hover:bg-secondary"
+              }`}
+            >
+              {testing === "loading" ? <><RefreshCw className="w-3 h-3 animate-spin" /> Testing…</> :
+               testing === "ok"      ? <><CircleCheck className="w-3 h-3" /> 200 OK</> :
+               testing === "err"     ? <><CircleAlert className="w-3 h-3" /> Failed</> :
+                                       <><Plug className="w-3 h-3" /> Test Connection</>}
             </button>
           </div>
         </>
       )}
 
       {v.soon && (
-        <div className="text-[11px] text-muted-foreground italic">
-          Integration in progress — join the early access list to get notified.
+        <div className="flex items-center justify-between gap-2">
+          <div className="text-[11px] text-muted-foreground italic">
+            Integration in progress — early access available.
+          </div>
+          {v.docUrl && (
+            <a href={v.docUrl} target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-primary hover:underline flex items-center gap-1">
+              <ExternalLink className="w-3 h-3" /> Docs
+            </a>
+          )}
         </div>
       )}
+    </div>
+  );
+}
+
+function Meta({ label, value, tone = "default" }: { label: string; value: React.ReactNode; tone?: "default" | "success" | "primary" | "muted" }) {
+  const toneCls =
+    tone === "success" ? "text-success" :
+    tone === "primary" ? "text-primary" :
+    tone === "muted"   ? "text-muted-foreground" : "text-foreground";
+  return (
+    <div className="px-2 py-1.5 rounded-lg bg-secondary/50 border border-border/40">
+      <div className="text-[9px] font-bold tracking-[0.1em] text-muted-foreground uppercase">{label}</div>
+      <div className={`text-[11px] font-mono font-bold mt-0.5 truncate ${toneCls}`}>{value}</div>
     </div>
   );
 }
