@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, Slider, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Mic2, Subtitles, Video, Sparkles, Code2, RefreshCw, Save } from "lucide-react";
+import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Sparkles, Code2, RefreshCw, Save, Bell } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
@@ -8,18 +8,18 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
 });
 
+// General application preferences only — API configuration lives in /basic-settings
+// and key management in /api-manager. Video/voice/subtitle preferences live in
+// their respective studios.
 const tabs = [
-  { k: "general", l: "General", icon: SettingsIcon },
-  { k: "rendering", l: "Rendering", icon: Sparkles },
-  { k: "video", l: "Video", icon: Video },
-  { k: "voice", l: "Voice", icon: Mic2 },
-  { k: "subtitle", l: "Subtitle", icon: Subtitles },
-  { k: "performance", l: "Performance", icon: Zap },
-  { k: "storage", l: "Storage", icon: HardDrive },
-  { k: "gpu", l: "GPU", icon: Cpu },
-  { k: "updates", l: "Updates", icon: RefreshCw },
-  { k: "advanced", l: "Advanced", icon: SettingsIcon },
-  { k: "developer", l: "Developer", icon: Code2 },
+  { k: "general",       l: "General",       icon: SettingsIcon },
+  { k: "rendering",     l: "Rendering",     icon: Sparkles },
+  { k: "performance",   l: "Performance",   icon: Zap },
+  { k: "gpu",           l: "GPU",           icon: Cpu },
+  { k: "storage",       l: "Storage",       icon: HardDrive },
+  { k: "notifications", l: "Notifications", icon: Bell },
+  { k: "updates",       l: "Updates",       icon: RefreshCw },
+  { k: "developer",     l: "Developer",     icon: Code2 },
 ];
 
 function SettingsPage() {
