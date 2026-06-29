@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AppStateProvider } from "@/store/app-state";
 import { Toaster } from "@/components/ui/sonner";
+import { ApiProvider } from "@/providers/ApiProvider";
+import { WebSocketProvider } from "@/providers/WebSocketProvider";
 
 function NotFoundComponent() {
   return (
