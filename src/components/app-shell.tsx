@@ -151,27 +151,41 @@ function NavItem({ icon: Icon, label, to, active, badge }: any) {
   );
 }
 
-function TopBar({ maxWidth }: { maxWidth: number }) {
+function TopBar({ maxWidth, onOpenMenu }: { maxWidth: number; onOpenMenu?: () => void }) {
   const { open, setOpen } = useCommandPalette();
   return (
     <div className="sticky top-0 z-30 backdrop-blur-xl bg-background/70 border-b border-border/60">
-      <div className="px-8 h-[68px] flex items-center gap-3 mx-auto" style={{ maxWidth }}>
+      <div
+        className="px-4 sm:px-6 lg:px-8 h-[60px] sm:h-[68px] flex items-center gap-2 sm:gap-3 mx-auto w-full"
+        style={{ maxWidth }}
+      >
+        {/* Mobile menu trigger */}
+        <button
+          type="button"
+          onClick={onOpenMenu}
+          aria-label="Open navigation"
+          className="lg:hidden shrink-0 w-10 h-10 rounded-xl bg-card border border-border grid place-items-center text-muted-foreground hover:text-foreground transition"
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+
         <button
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open command palette (Cmd or Ctrl + K)"
-          className="flex-1 max-w-xl relative h-11 group text-left"
+          className="flex-1 min-w-0 max-w-xl relative h-10 sm:h-11 group text-left"
         >
-          <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <span className="block w-full h-11 pl-11 pr-24 rounded-xl bg-card border border-border text-[13.5px] text-muted-foreground leading-[44px] group-hover:border-primary/30 transition truncate">
-            Search projects, voices, templates…
+          <Search className="w-4 h-4 absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <span className="block w-full h-10 sm:h-11 pl-9 sm:pl-11 pr-14 sm:pr-24 rounded-xl bg-card border border-border text-[12.5px] sm:text-[13.5px] text-muted-foreground leading-[40px] sm:leading-[44px] group-hover:border-primary/30 transition truncate">
+            <span className="hidden sm:inline">Search projects, voices, templates…</span>
+            <span className="sm:hidden">Search…</span>
           </span>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-muted-foreground bg-secondary px-2 py-1 rounded-md font-medium">
+          <span className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[10.5px] sm:text-[11px] text-muted-foreground bg-secondary px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md font-medium">
             <Command className="w-3 h-3" /> K
           </span>
         </button>
 
-        <div className="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-card border border-border" title="System status: all services healthy">
+        <div className="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-card border border-border" title="System status: all services healthy">
           <div className="relative">
             <div className="w-2 h-2 rounded-full bg-success" />
             <div className="absolute inset-0 w-2 h-2 rounded-full bg-success animate-ping opacity-60" />
@@ -179,7 +193,7 @@ function TopBar({ maxWidth }: { maxWidth: number }) {
           <span className="text-[12px] font-medium text-foreground">All Systems Online</span>
         </div>
 
-        <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-accent/40 border border-primary/15">
+        <div className="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-accent/40 border border-primary/15">
           <Sparkles className="w-3.5 h-3.5 text-primary" />
           <span className="text-[12px] font-semibold text-primary">Pro Plan</span>
         </div>
@@ -194,6 +208,7 @@ function TopBar({ maxWidth }: { maxWidth: number }) {
     </div>
   );
 }
+
 
 function ThemeSwitch() {
   const [dark, setDark] = useState(false);
