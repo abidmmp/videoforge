@@ -489,19 +489,28 @@ export function SectionCard({ title, subtitle, right, children, defaultOpen = tr
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="rounded-3xl bg-card border border-border shadow-card overflow-hidden">
-      <button
-        onClick={() => collapsible && setOpen(v => !v)}
-        className={`w-full flex items-center justify-between gap-4 px-6 py-5 ${collapsible ? "cursor-pointer hover:bg-secondary/30" : ""} transition`}
-      >
-        <div className="text-left">
-          <h3 className="font-display font-bold text-[16px]">{title}</h3>
-          {subtitle && <p className="text-[11.5px] text-muted-foreground mt-0.5">{subtitle}</p>}
-        </div>
-        <div className="flex items-center gap-3">
-          {right}
-          {collapsible && <ChevronDown className={`w-4 h-4 text-muted-foreground transition ${open ? "" : "-rotate-90"}`} />}
-        </div>
-      </button>
+      <div className={`w-full flex items-center justify-between gap-4 px-6 py-5 ${collapsible ? "hover:bg-secondary/30" : ""} transition`}>
+        {collapsible ? (
+          <button
+            type="button"
+            onClick={() => setOpen(v => !v)}
+            className="flex-1 min-w-0 text-left cursor-pointer flex items-center gap-3"
+            aria-expanded={open}
+          >
+            <div className="min-w-0">
+              <h3 className="font-display font-bold text-[16px] truncate">{title}</h3>
+              {subtitle && <p className="text-[11.5px] text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
+            </div>
+            <ChevronDown className={`w-4 h-4 text-muted-foreground transition shrink-0 ${open ? "" : "-rotate-90"}`} />
+          </button>
+        ) : (
+          <div className="flex-1 min-w-0 text-left">
+            <h3 className="font-display font-bold text-[16px] truncate">{title}</h3>
+            {subtitle && <p className="text-[11.5px] text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
+          </div>
+        )}
+        {right && <div className="flex items-center gap-3 shrink-0">{right}</div>}
+      </div>
       {open && <div className="px-6 pb-6 pt-1 border-t border-border/60">{children}</div>}
     </div>
   );
