@@ -463,6 +463,8 @@ function SubtitleStudioPage() {
               </div>
             </SectionCard>
           </div>
+          </>
+          )}
         </div>
 
         {/* RIGHT RAIL: Preview + AI */}
