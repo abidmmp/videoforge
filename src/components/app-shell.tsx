@@ -5,7 +5,7 @@ import {
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
   CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
-  AudioLines,
+  AudioLines, Rocket, ListVideo,
 } from "lucide-react";
 import { useState, useRef, useEffect, type ReactNode } from "react";
 
