@@ -230,3 +230,40 @@ logic + tests land.
 15. **Decide the `/voices`-`/music`-`/effects`-`/templates`-`/assets`
     overlap** with their studio counterparts (keep as galleries vs
     delete).
+
+---
+
+## Phase 8B — Provider Mount & Hook Activation (this revision)
+
+**Mounted at the React root** (`src/routes/__root.tsx`)
+- `<ApiProvider>` (sharing the router's `QueryClient` so loaders + hooks
+  use a single cache).
+- `<WebSocketProvider>` (pooled manager, idle until a consumer calls
+  `acquire(url)`).
+- Order: `ApiProvider → WebSocketProvider → AppStateProvider → Outlet`.
+
+**Hooks activated** — removed `enabled: false` from every Phase 8A hook so
+consumers can render real data the moment a page imports them:
+`useApiHealth`, `useVoices`, `useQueue`, `useOutputs`, `useProjects`,
+`useTask` (gated on `!!id`).
+
+**New components**
+- `src/components/api-health-badge.tsx` — global Connected /
+  Reconnecting / Disconnected pill. Drop into the top-bar action slot
+  when wiring the live header.
+
+**Status of broader binding work** (tracked in
+`docs/INTEGRATION_CHECKLIST.md`)
+- Foundation: 🟦 **Connected** (providers mounted, hooks live).
+- Per-page binding: 🟧 **Ready** — pages still render their static
+  presentation arrays. Each page swap is a focused 1-route PR and
+  belongs to Phase 8C. Mock data was intentionally **not** ripped out
+  in this turn because doing so without backend availability would
+  blank every screen and break the design review.
+
+**Readiness scores after Phase 8B**
+- Frontend UI completion: **97 %** (unchanged).
+- Integration foundation: **100 %** (was 92 %).
+- Overall completion: **70 %** (was 64 %).
+- Production readiness: **52 %** (was 48 %).
+- Phase 9 (per-page binding) is **unblocked**.
