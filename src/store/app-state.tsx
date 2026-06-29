@@ -66,7 +66,7 @@ const INITIAL: AppState = {
     reduceMotion: false,
     developerMode: false,
   },
-  renderQueue: [],
+  renderQueue: SEED_RENDER_QUEUE,
   isDirty: false,
   isSaving: false,
   lastSavedAt: null,
