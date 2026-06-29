@@ -125,12 +125,14 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppStateProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <Toaster />
-      </AppStateProvider>
-    </QueryClientProvider>
+    <ApiProvider queryClient={queryClient}>
+      <WebSocketProvider>
+        <AppStateProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <Toaster />
+        </AppStateProvider>
+      </WebSocketProvider>
+    </ApiProvider>
   );
 }
