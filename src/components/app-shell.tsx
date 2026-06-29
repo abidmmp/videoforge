@@ -439,15 +439,15 @@ function UserMenu() {
 
 function Footer() {
   return (
-    <div className="mt-10 pt-6 border-t border-border flex items-center justify-between text-[11.5px] text-muted-foreground">
-      <div className="flex items-center gap-2">
-        <div className="w-5 h-5 rounded-md bg-brand-gradient grid place-items-center">
+    <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[11.5px] text-muted-foreground">
+      <div className="flex items-center gap-2 flex-wrap">
+        <div className="w-5 h-5 rounded-md bg-brand-gradient grid place-items-center shrink-0">
           <Wand2 className="w-2.5 h-2.5 text-white" strokeWidth={2.5} />
         </div>
         <span className="font-medium">VideoForge AI</span>
-        <span>· v1.0.0 · Professional AI Video Studio</span>
+        <span className="hidden sm:inline">· v1.0.0 · Professional AI Video Studio</span>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3 sm:gap-5 flex-wrap">
         <a href="https://abidalidev.com" target="_blank" rel="noreferrer" className="hover:text-foreground transition">abidalidev.com</a>
         <a href="https://github.com/abidmmp" target="_blank" rel="noreferrer" className="hover:text-foreground transition">GitHub</a>
         <a href="https://linkedin.com/in/abidalidev" target="_blank" rel="noreferrer" className="hover:text-foreground transition">LinkedIn</a>
@@ -461,9 +461,9 @@ function Footer() {
 
 export function PageHeader({ crumb, title, subtitle, actions }: { crumb: string[]; title: string; subtitle?: string; actions?: ReactNode }) {
   return (
-    <div className="flex items-end justify-between pt-7 pb-6 gap-4">
+    <div className="flex flex-col md:flex-row md:items-end md:justify-between pt-5 sm:pt-7 pb-5 sm:pb-6 gap-4">
       <div className="min-w-0">
-        <div className="flex items-center gap-2 text-[12px] text-muted-foreground mb-2">
+        <div className="flex items-center gap-2 text-[11.5px] sm:text-[12px] text-muted-foreground mb-2 flex-wrap">
           {crumb.map((c, i) => (
             <span key={i} className="flex items-center gap-2">
               {i > 0 && <span className="text-border">/</span>}
@@ -471,17 +471,19 @@ export function PageHeader({ crumb, title, subtitle, actions }: { crumb: string[
             </span>
           ))}
         </div>
-        <h1 className="font-display font-extrabold text-[34px] leading-none tracking-tight">{title}</h1>
-        {subtitle && <p className="text-[13.5px] text-muted-foreground mt-2.5">{subtitle}</p>}
+        <h1 className="font-display font-extrabold text-[26px] sm:text-[30px] lg:text-[34px] leading-[1.05] tracking-tight break-words">{title}</h1>
+        {subtitle && <p className="text-[12.5px] sm:text-[13.5px] text-muted-foreground mt-2 sm:mt-2.5">{subtitle}</p>}
       </div>
-      {actions && <div className="flex items-center gap-2.5 shrink-0">{actions}</div>}
+      {actions && <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap md:flex-nowrap md:shrink-0">{actions}</div>}
     </div>
   );
 }
 
-export function Card({ children, className = "", padding = "p-6" }: { children: ReactNode; className?: string; padding?: string }) {
-  return <div className={`rounded-3xl bg-card border border-border shadow-card ${padding} ${className}`}>{children}</div>;
+export function Card({ children, className = "", padding = "p-4 sm:p-6" }: { children: ReactNode; className?: string; padding?: string }) {
+  return <div className={`rounded-2xl sm:rounded-3xl bg-card border border-border shadow-card ${padding} ${className}`}>{children}</div>;
 }
+
+
 
 export function SectionCard({ title, subtitle, right, children, defaultOpen = true, collapsible = true }: { title: string; subtitle?: string; right?: ReactNode; children: ReactNode; defaultOpen?: boolean; collapsible?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
