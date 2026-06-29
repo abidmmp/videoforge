@@ -194,8 +194,32 @@ function SubtitleStudioPage() {
         }
       />
 
+      <div className="flex items-center gap-1 bg-card border border-border rounded-2xl p-1 mb-5 w-fit shadow-card">
+        {TABS.map(t => {
+          const Icon = t.icon;
+          const active = tab === t.id;
+          return (
+            <button key={t.id} onClick={() => setTab(t.id)} className={`flex items-center gap-2 px-4 h-10 rounded-xl text-[12.5px] font-semibold transition ${active ? "bg-brand-gradient text-white shadow-brand" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+              <Icon className="w-4 h-4" /> {t.label}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-8 space-y-5">
+          {tab !== "style" && (
+            <>
+              {tab === "templates" && <TemplateGallerySection />}
+              {tab === "animations" && <AnimationStudioSection />}
+              {tab === "karaoke" && <KaraokeHighlightSection />}
+              {tab === "themes" && <ColorThemesSection />}
+              {tab === "brand" && <BrandKitSection />}
+            </>
+          )}
+          {tab === "style" && (
+          <></>
+          )}
           {/* ENABLE */}
           <SectionCard
             title="Subtitle Engine"
