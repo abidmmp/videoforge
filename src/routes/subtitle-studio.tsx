@@ -531,6 +531,8 @@ function SubtitleStudioPage() {
                 <Sparkles className="w-3.5 h-3.5" /> Apply AI Auto-Style
               </button>
             </div>
+
+            <AIStyleRecommendationSection />
           </div>
         </div>
       </div>
