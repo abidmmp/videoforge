@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, GhostButton, Pill, Input } from "@/components/app-shell";
+import { StudioRedirectBanner } from "@/components/shared";
 import { Search, Star, Download, Sparkles } from "lucide-react";
 import { useState } from "react";
 
