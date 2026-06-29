@@ -39,13 +39,45 @@ const navGeneral = [
 ];
 
 export function AppShell({ children, maxWidth = 1760 }: { children: ReactNode; maxWidth?: number }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = useRouterState({ select: s => s.location.pathname });
+  // Auto-close drawer on route change
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="flex">
-        <Sidebar />
-        <main className="flex-1 min-w-0">
-          <TopBar maxWidth={maxWidth} />
-          <div className="px-8 pb-10 pt-2 mx-auto" style={{ maxWidth }}>
+        {/* Desktop sidebar */}
+        <div className="hidden lg:block">
+          <Sidebar />
+        </div>
+        {/* Mobile drawer */}
+        {mobileOpen && (
+          <>
+            <button
+              aria-label="Close menu"
+              onClick={() => setMobileOpen(false)}
+              className="lg:hidden fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
+            />
+            <div className="lg:hidden fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] shadow-card-lg animate-in slide-in-from-left duration-200">
+              <div className="relative h-full">
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-lg bg-card border border-border grid place-items-center"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <Sidebar />
+              </div>
+            </div>
+          </>
+        )}
+        <main className="flex-1 min-w-0 w-full">
+          <TopBar maxWidth={maxWidth} onOpenMenu={() => setMobileOpen(true)} />
+          <div
+            className="app-content px-4 sm:px-6 lg:px-8 pb-10 pt-2 mx-auto w-full"
+            style={{ maxWidth }}
+          >
             {children}
             <Footer />
           </div>
@@ -58,7 +90,7 @@ export function AppShell({ children, maxWidth = 1760 }: { children: ReactNode; m
 function Sidebar() {
   const pathname = useRouterState({ select: s => s.location.pathname });
   return (
-    <aside className="w-[260px] shrink-0 h-screen sticky top-0 bg-sidebar border-r border-border flex flex-col">
+    <aside className="w-[260px] shrink-0 h-screen lg:sticky top-0 bg-sidebar border-r border-border flex flex-col">
       <Link to="/" className="px-6 pt-6 pb-5 block">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-brand-gradient grid place-items-center shadow-brand">
@@ -98,6 +130,7 @@ function Sidebar() {
     </aside>
   );
 }
+
 
 function NavItem({ icon: Icon, label, to, active, badge }: any) {
   return (
