@@ -45,8 +45,7 @@ const ENTRIES: Entry[] = [
   { id: "l-mus", group: "Libraries", title: "Music", icon: Music2, to: "/music" },
 
   // System
-  { id: "s-api", group: "System", title: "API Manager", icon: KeyRound, to: "/api-manager", keywords: "openai elevenlabs pexels keys" },
-  { id: "s-basic", group: "System", title: "Basic Settings", hint: "LLM & Providers", icon: SettingsIcon, to: "/basic-settings", keywords: "llm provider model openai groq" },
+  { id: "s-basic", group: "System", title: "Basic Settings", hint: "LLM & Providers", icon: SettingsIcon, to: "/basic-settings", keywords: "llm provider model openai groq api keys elevenlabs pexels" },
   
   { id: "s-lang", group: "System", title: "Languages", icon: Languages, to: "/languages" },
   { id: "s-log", group: "System", title: "Logs", icon: ScrollText, to: "/logs" },
