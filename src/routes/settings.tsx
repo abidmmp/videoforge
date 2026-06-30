@@ -8,12 +8,11 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
 });
 
-// General application preferences only — API configuration lives in /basic-settings
-// and key management in /api-manager. Video/voice/subtitle preferences live in
-// their respective studios.
+// General application preferences only — API configuration lives in /basic-settings,
+// key management in /api-manager, and render defaults in /render-settings. Video/voice/
+// subtitle preferences live in their respective studios.
 const tabs = [
   { k: "general",       l: "General",       icon: SettingsIcon },
-  { k: "rendering",     l: "Rendering",     icon: Sparkles },
   { k: "performance",   l: "Performance",   icon: Zap },
   { k: "gpu",           l: "GPU",           icon: Cpu },
   { k: "storage",       l: "Storage",       icon: HardDrive },
