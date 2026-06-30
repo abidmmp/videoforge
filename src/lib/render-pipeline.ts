@@ -120,7 +120,7 @@ export const SEED_OUTPUTS: Output[] = [
 export const SEED_NOTIFICATIONS: Notification[] = [
   { id: "n_001", level: "success", category: "render", title: "Render completed", message: "Productivity Hacks · 1080p · 248 MB", createdAt: new Date(Date.now() - 60_000).toISOString(),    isRead: false, actionLabel: "Open", actionTo: "/outputs" },
   { id: "n_002", level: "info",    category: "render", title: "Render started",   message: "Morning Habits of CEOs queued",        createdAt: new Date(Date.now() - 240_000).toISOString(),   isRead: false, actionTo: "/queue" },
-  { id: "n_003", level: "warning", category: "api",    title: "Pexels rate limit",message: "Falling back to Pixabay",              createdAt: new Date(Date.now() - 900_000).toISOString(),   isRead: false, actionTo: "/api-manager" },
+  { id: "n_003", level: "warning", category: "api",    title: "Pexels rate limit",message: "Falling back to Pixabay",              createdAt: new Date(Date.now() - 900_000).toISOString(),   isRead: false, actionTo: "/basic-settings" },
   { id: "n_004", level: "success", category: "system", title: "Project saved",    message: "Tokyo at Midnight",                    createdAt: new Date(Date.now() - 1_800_000).toISOString(), isRead: true },
   { id: "n_005", level: "error",   category: "render", title: "Render failed",    message: "Sleep Science · Pexels HTTP 429",      createdAt: new Date(Date.now() - 3_300_000).toISOString(), isRead: true,  actionLabel: "Retry", actionTo: "/queue" },
   { id: "n_006", level: "info",    category: "update", title: "Update available", message: "VideoForge AI 1.1.0 is ready",         createdAt: new Date(Date.now() - 7_200_000).toISOString(), isRead: true },
