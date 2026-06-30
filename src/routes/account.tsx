@@ -15,6 +15,7 @@ const tabs = [
   { k: "billing", l: "Billing", icon: Receipt },
   { k: "api-usage", l: "API Usage", icon: Gauge },
   { k: "security", l: "Security", icon: Shield },
+  { k: "general", l: "General Settings", icon: SettingsIcon },
 ];
 
 function AccountPage() {
