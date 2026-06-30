@@ -30,7 +30,6 @@ const navMain = [
 ];
 
 const navGeneral = [
-  { icon: KeyRound, label: "API Manager", to: "/api-manager" },
   { icon: SettingsIcon, label: "Basic Settings", to: "/basic-settings", badge: "NEW" },
   { icon: Sparkles, label: "Render Settings", to: "/render-settings" },
   { icon: Languages, label: "Languages", to: "/languages" },
