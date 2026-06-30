@@ -132,7 +132,7 @@ function SettingsPage() {
   );
 }
 
-function Group({ title, sub, children }: any) {
+export function Group({ title, sub, children }: any) {
   return (
     <div className="rounded-3xl bg-card border border-border p-6 shadow-card">
       <div className="mb-5">
@@ -144,6 +144,6 @@ function Group({ title, sub, children }: any) {
   );
 }
 
-function Row({ label, children }: any) {
+export function Row({ label, children }: any) {
   return <div className="flex items-center justify-between py-1.5 border-t border-border/50 first:border-t-0 pt-3 first:pt-0"><span className="text-[13px] font-medium">{label}</span>{children}</div>;
 }
