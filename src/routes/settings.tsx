@@ -54,15 +54,6 @@ function SettingsPage() {
             <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
           </Group>}
 
-          {tab === "rendering" && <Group title="Rendering" sub="Default render preset">
-            <Field label="Encoder"><Select><option>H.264 NVENC (GPU)</option><option>H.264 CPU</option><option>HEVC</option><option>AV1</option></Select></Field>
-            <Field label="Quality preset"><Select><option>Balanced</option><option>Maximum quality</option><option>Fast preview</option></Select></Field>
-            <Field label="Bitrate target (Mbps)"><Slider value={60} /></Field>
-            <Row label="Two-pass encoding"><Toggle /></Row>
-            <Row label="Hardware acceleration"><Toggle checked /></Row>
-            <Row label="Delete temp files after success"><Toggle checked /></Row>
-          </Group>}
-
           {tab === "video" && <Group title="Video Defaults" sub="Defaults applied to every new project">
             <Field label="Default aspect ratio"><Select><option>9:16 Vertical</option><option>16:9 Horizontal</option><option>1:1 Square</option></Select></Field>
             <Field label="Default resolution"><Select><option>1080p</option><option>1440p</option><option>2160p (4K)</option></Select></Field>
