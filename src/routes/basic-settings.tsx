@@ -192,9 +192,9 @@ function BasicSettingsPage() {
         }
       />
 
+      <ApiSummaryCards />
+
       <div className="grid grid-cols-12 gap-5">
-        {/* ============================== LEFT COLUMN ============================== */}
-        <div className="col-span-12 xl:col-span-8 space-y-5">
           {/* AI CONFIGURATION */}
           <SectionCard
             title="AI Configuration"
