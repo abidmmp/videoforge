@@ -68,6 +68,3 @@ function RenderSettingsPage() {
     </AppShell>
   );
 }
-
-// keep icon import referenced for parity with sidebar entry
-void Sparkles;
