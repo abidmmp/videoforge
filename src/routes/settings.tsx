@@ -66,13 +66,8 @@ function SettingsPage() {
             <Row label="Export .srt sidecar file"><Toggle checked /></Row>
           </Group>}
 
-          {tab === "performance" && <Group title="Performance">
-            <Field label="Worker threads"><Slider value={70} /></Field>
-            <Field label="Memory cap (GB)"><Input type="number" defaultValue={16} /></Field>
-            <Field label="Concurrent renders"><Select><option>1</option><option>2</option><option>3</option></Select></Field>
-            <Row label="Background rendering"><Toggle checked /></Row>
-            <Row label="Low-power mode when on battery"><Toggle /></Row>
-          </Group>}
+
+
 
           {tab === "storage" && <Group title="Storage" sub="Project, cache and asset folders">
             <Field label="Projects folder"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
