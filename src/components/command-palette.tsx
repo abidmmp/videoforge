@@ -45,8 +45,7 @@ const ENTRIES: Entry[] = [
   { id: "l-mus", group: "Libraries", title: "Music", icon: Music2, to: "/music" },
 
   // System
-  { id: "s-api", group: "System", title: "API Manager", icon: KeyRound, to: "/api-manager", keywords: "openai elevenlabs pexels keys" },
-  { id: "s-basic", group: "System", title: "Basic Settings", hint: "LLM & Providers", icon: SettingsIcon, to: "/basic-settings", keywords: "llm provider model openai groq" },
+  { id: "s-basic", group: "System", title: "Basic Settings", hint: "LLM & Providers", icon: SettingsIcon, to: "/basic-settings", keywords: "llm provider model openai groq api keys elevenlabs pexels" },
   
   { id: "s-lang", group: "System", title: "Languages", icon: Languages, to: "/languages" },
   { id: "s-log", group: "System", title: "Logs", icon: ScrollText, to: "/logs" },
@@ -60,12 +59,12 @@ const ENTRIES: Entry[] = [
   { id: "a-sec", group: "Account", title: "Security", icon: Shield, to: "/security" },
   { id: "a-help", group: "Account", title: "Help & Support", icon: HelpCircle, to: "/help" },
 
-  // Providers (deep-links into Basic Settings/API Manager search context)
+  // Providers (deep-links into Basic Settings)
   { id: "p-openai", group: "Providers", title: "OpenAI", hint: "LLM provider", icon: KeyRound, to: "/basic-settings", keywords: "gpt-4 gpt-4o llm" },
   { id: "p-anthropic", group: "Providers", title: "Anthropic Claude", hint: "LLM provider", icon: KeyRound, to: "/basic-settings", keywords: "claude sonnet" },
   { id: "p-gemini", group: "Providers", title: "Google Gemini", hint: "LLM provider", icon: KeyRound, to: "/basic-settings" },
   { id: "p-groq", group: "Providers", title: "Groq", hint: "LLM provider", icon: KeyRound, to: "/basic-settings" },
-  { id: "p-eleven", group: "Providers", title: "ElevenLabs", hint: "Voice provider", icon: KeyRound, to: "/api-manager", keywords: "tts voice" },
+  { id: "p-eleven", group: "Providers", title: "ElevenLabs", hint: "Voice provider", icon: KeyRound, to: "/basic-settings", keywords: "tts voice" },
   { id: "p-pexels", group: "Providers", title: "Pexels", hint: "Video source", icon: KeyRound, to: "/basic-settings", keywords: "stock footage" },
   { id: "p-pixabay", group: "Providers", title: "Pixabay", hint: "Video source", icon: KeyRound, to: "/basic-settings" },
 ];

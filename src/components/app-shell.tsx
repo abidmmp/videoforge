@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, Video, FolderKanban, Subtitles, Sparkles, Library,
-  LayoutTemplate, Mic2, Music2, FileVideo, KeyRound, Languages, ScrollText,
+  LayoutTemplate, Mic2, Music2, FileVideo, Languages, ScrollText,
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
   CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
@@ -30,7 +30,6 @@ const navMain = [
 ];
 
 const navGeneral = [
-  { icon: KeyRound, label: "API Manager", to: "/api-manager" },
   { icon: SettingsIcon, label: "Basic Settings", to: "/basic-settings", badge: "NEW" },
   { icon: Sparkles, label: "Render Settings", to: "/render-settings" },
   { icon: Languages, label: "Languages", to: "/languages" },
