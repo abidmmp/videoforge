@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, Slider, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Sparkles, Code2, RefreshCw, Save, Bell } from "lucide-react";
+import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Code2, RefreshCw, Save, Bell } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
