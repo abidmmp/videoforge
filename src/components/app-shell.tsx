@@ -26,6 +26,7 @@ const navMain = [
   { icon: Rocket, label: "Render Studio", to: "/render", badge: "PRO" },
   { icon: ListVideo, label: "Render Queue", to: "/queue" },
   { icon: FileVideo, label: "Outputs", to: "/outputs", badge: "3" },
+  { icon: UserCircle, label: "Account", to: "/account" },
 ];
 
 const navGeneral = [
