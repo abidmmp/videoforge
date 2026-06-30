@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, Video, FolderKanban, Subtitles, Sparkles, Library,
-  LayoutTemplate, Mic2, Music2, FileVideo, KeyRound, Languages, ScrollText,
+  LayoutTemplate, Mic2, Music2, FileVideo, Languages, ScrollText,
   Settings as SettingsIcon, Code2, Info, Search, Bell, ChevronDown, Sun, Moon,
   Command, Wand2, LogOut, User, CreditCard, Shield, Receipt, Gauge, UserCircle,
   CheckCircle2, AlertTriangle, Mic, FileText, Download, Filter, Check, Clapperboard,
