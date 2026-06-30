@@ -158,6 +158,15 @@ function AccountPage() {
               <Row label="Require password for sensitive changes"><Toggle checked /></Row>
             </div>
           </Group>}
+
+          {tab === "general" && <Group title="General" sub="Workspace name, defaults and behavior">
+            <Field label="Workspace name"><Input defaultValue="Abid's Studio" /></Field>
+            <Field label="Default project location"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
+            <Field label="Theme"><Select><option>System</option><option>Light</option><option>Dark</option></Select></Field>
+            <Row label="Start with last project"><Toggle checked /></Row>
+            <Row label="Send anonymous usage analytics"><Toggle /></Row>
+            <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
+          </Group>}
         </div>
       </div>
     </AppShell>
