@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, Slider, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Code2, RefreshCw, Save, Bell } from "lucide-react";
+import { Cpu, HardDrive, Zap, RefreshCw, Save, Bell } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
@@ -8,21 +8,18 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
 });
 
-// General application preferences only — API configuration lives in /basic-settings,
-// key management in /api-manager, and render defaults in /render-settings. Video/voice/
-// subtitle preferences live in their respective studios.
+// Machine/application settings only. General preferences live in /account,
+// performance lives in /render-settings, developer lives in /developer.
 const tabs = [
-  { k: "general",       l: "General",       icon: SettingsIcon },
-  { k: "performance",   l: "Performance",   icon: Zap },
   { k: "gpu",           l: "GPU",           icon: Cpu },
   { k: "storage",       l: "Storage",       icon: HardDrive },
   { k: "notifications", l: "Notifications", icon: Bell },
   { k: "updates",       l: "Updates",       icon: RefreshCw },
-  { k: "developer",     l: "Developer",     icon: Code2 },
 ];
 
 function SettingsPage() {
-  const [tab, setTab] = useState("general");
+  const [tab, setTab] = useState("gpu");
+
   return (
     <AppShell>
       <PageHeader
@@ -45,14 +42,8 @@ function SettingsPage() {
         </aside>
 
         <div className="flex-1 min-w-0 space-y-5">
-          {tab === "general" && <Group title="General" sub="Workspace name, defaults and behavior">
-            <Field label="Workspace name"><Input defaultValue="Abid's Studio" /></Field>
-            <Field label="Default project location"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
-            <Field label="Theme"><Select><option>System</option><option>Light</option><option>Dark</option></Select></Field>
-            <Row label="Start with last project"><Toggle checked /></Row>
-            <Row label="Send anonymous usage analytics"><Toggle /></Row>
-            <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
-          </Group>}
+
+
 
           {tab === "video" && <Group title="Video Defaults" sub="Defaults applied to every new project">
             <Field label="Default aspect ratio"><Select><option>9:16 Vertical</option><option>16:9 Horizontal</option><option>1:1 Square</option></Select></Field>
@@ -75,13 +66,8 @@ function SettingsPage() {
             <Row label="Export .srt sidecar file"><Toggle checked /></Row>
           </Group>}
 
-          {tab === "performance" && <Group title="Performance">
-            <Field label="Worker threads"><Slider value={70} /></Field>
-            <Field label="Memory cap (GB)"><Input type="number" defaultValue={16} /></Field>
-            <Field label="Concurrent renders"><Select><option>1</option><option>2</option><option>3</option></Select></Field>
-            <Row label="Background rendering"><Toggle checked /></Row>
-            <Row label="Low-power mode when on battery"><Toggle /></Row>
-          </Group>}
+
+
 
           {tab === "storage" && <Group title="Storage" sub="Project, cache and asset folders">
             <Field label="Projects folder"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
@@ -120,12 +106,8 @@ function SettingsPage() {
             <Row label="Allow custom plugins"><Toggle checked /></Row>
           </Group>}
 
-          {tab === "developer" && <Group title="Developer">
-            <Row label="Show developer tools in app"><Toggle /></Row>
-            <Row label="Enable raw API response inspector"><Toggle /></Row>
-            <Field label="Backend URL"><Input defaultValue="http://127.0.0.1:8501" /></Field>
-            <Field label="Webhook URL"><Input placeholder="https://…" /></Field>
-          </Group>}
+
+
         </div>
       </div>
     </AppShell>

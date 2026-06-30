@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { User, UserCircle, Sparkles, Receipt, Gauge, Shield, Check, Download, Smartphone, Key } from "lucide-react";
+import { User, UserCircle, Sparkles, Receipt, Gauge, Shield, Check, Download, Smartphone, Key, Settings as SettingsIcon } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/account")({
@@ -15,6 +15,7 @@ const tabs = [
   { k: "billing", l: "Billing", icon: Receipt },
   { k: "api-usage", l: "API Usage", icon: Gauge },
   { k: "security", l: "Security", icon: Shield },
+  { k: "general", l: "General Settings", icon: SettingsIcon },
 ];
 
 function AccountPage() {
@@ -156,6 +157,15 @@ function AccountPage() {
               <Row label="Email me on new sign-in"><Toggle checked /></Row>
               <Row label="Require password for sensitive changes"><Toggle checked /></Row>
             </div>
+          </Group>}
+
+          {tab === "general" && <Group title="General" sub="Workspace name, defaults and behavior">
+            <Field label="Workspace name"><Input defaultValue="Abid's Studio" /></Field>
+            <Field label="Default project location"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
+            <Field label="Theme"><Select><option>System</option><option>Light</option><option>Dark</option></Select></Field>
+            <Row label="Start with last project"><Toggle checked /></Row>
+            <Row label="Send anonymous usage analytics"><Toggle /></Row>
+            <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
           </Group>}
         </div>
       </div>

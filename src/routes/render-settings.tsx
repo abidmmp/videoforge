@@ -3,6 +3,7 @@ import {
   AppShell,
   PageHeader,
   Field,
+  Input,
   Select,
   Toggle,
   Slider,
@@ -64,6 +65,16 @@ function RenderSettingsPage() {
             <Toggle checked />
           </Row>
         </Group>
+
+        <div className="mt-5">
+          <Group title="Performance" sub="Worker, memory and concurrency limits for renders">
+            <Field label="Worker threads"><Slider value={70} /></Field>
+            <Field label="Memory cap (GB)"><Input type="number" defaultValue={16} /></Field>
+            <Field label="Concurrent renders"><Select><option>1</option><option>2</option><option>3</option></Select></Field>
+            <Row label="Background rendering"><Toggle checked /></Row>
+            <Row label="Low-power mode when on battery"><Toggle /></Row>
+          </Group>
+        </div>
       </div>
     </AppShell>
   );
