@@ -11,6 +11,12 @@ import {
   Wifi, Clock, Zap, Info, ExternalLink, GripVertical, Lock, ArrowUpDown,
   Image as ImageIcon, Bot, Globe, FlaskConical, Power, PowerOff,
 } from "lucide-react";
+import {
+  ApiSummaryCards,
+  ApiGroupSection,
+  TTS_APIS,
+  FUTURE_APIS,
+} from "@/components/api-manager-shared";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/basic-settings")({
