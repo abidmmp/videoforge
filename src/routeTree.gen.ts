@@ -16,7 +16,6 @@ import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SubtitleStudioRouteImport } from './routes/subtitle-studio'
 import { Route as SubscriptionRouteImport } from './routes/subscription'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RenderSettingsRouteImport } from './routes/render-settings'
@@ -77,11 +76,6 @@ const SubscriptionRoute = SubscriptionRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -242,7 +236,6 @@ export interface FileRoutesByFullPath {
   '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
-  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/subscription': typeof SubscriptionRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
@@ -278,7 +271,6 @@ export interface FileRoutesByTo {
   '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
-  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/subscription': typeof SubscriptionRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
@@ -315,7 +307,6 @@ export interface FileRoutesById {
   '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
-  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/subscription': typeof SubscriptionRoute
   '/subtitle-studio': typeof SubtitleStudioRoute
@@ -353,7 +344,6 @@ export interface FileRouteTypes {
     | '/render-settings'
     | '/reset-password'
     | '/security'
-    | '/settings'
     | '/signup'
     | '/subscription'
     | '/subtitle-studio'
@@ -389,7 +379,6 @@ export interface FileRouteTypes {
     | '/render-settings'
     | '/reset-password'
     | '/security'
-    | '/settings'
     | '/signup'
     | '/subscription'
     | '/subtitle-studio'
@@ -425,7 +414,6 @@ export interface FileRouteTypes {
     | '/render-settings'
     | '/reset-password'
     | '/security'
-    | '/settings'
     | '/signup'
     | '/subscription'
     | '/subtitle-studio'
@@ -462,7 +450,6 @@ export interface RootRouteChildren {
   RenderSettingsRoute: typeof RenderSettingsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SecurityRoute: typeof SecurityRoute
-  SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
   SubscriptionRoute: typeof SubscriptionRoute
   SubtitleStudioRoute: typeof SubtitleStudioRoute
@@ -521,13 +508,6 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -742,7 +722,6 @@ const rootRouteChildren: RootRouteChildren = {
   RenderSettingsRoute: RenderSettingsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SecurityRoute: SecurityRoute,
-  SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
   SubscriptionRoute: SubscriptionRoute,
   SubtitleStudioRoute: SubtitleStudioRoute,

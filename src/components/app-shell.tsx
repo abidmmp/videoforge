@@ -35,7 +35,7 @@ const navGeneral = [
   { icon: Sparkles, label: "Render Settings", to: "/render-settings" },
   { icon: Languages, label: "Languages", to: "/languages" },
   { icon: ScrollText, label: "Logs", to: "/logs" },
-  { icon: SettingsIcon, label: "Settings", to: "/settings" },
+  
   { icon: Code2, label: "Developer Mode", to: "/developer" },
   { icon: Info, label: "About", to: "/about" },
 ];
@@ -369,7 +369,7 @@ function NotificationBell() {
           </div>
           <div className="px-4 py-3 border-t border-border bg-secondary/20 flex items-center justify-between">
             <Link to="/logs" onClick={() => setOpen(false)} className="text-[11.5px] font-semibold text-primary hover:underline">Open activity log</Link>
-            <Link to="/settings" onClick={() => setOpen(false)} className="text-[11.5px] font-medium text-muted-foreground hover:text-foreground">Settings</Link>
+            <Link to="/notifications" onClick={() => setOpen(false)} className="text-[11.5px] font-medium text-muted-foreground hover:text-foreground">Notification preferences</Link>
           </div>
         </div>
       )}
@@ -392,7 +392,7 @@ function UserMenu() {
     { icon: Gauge, label: "Usage" },
     { icon: Receipt, label: "Subscription" },
     { icon: Shield, label: "Security" },
-    { icon: SettingsIcon, label: "Settings" },
+    
   ];
   return (
     <div className="relative" ref={ref}>

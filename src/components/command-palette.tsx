@@ -47,7 +47,7 @@ const ENTRIES: Entry[] = [
   // System
   { id: "s-api", group: "System", title: "API Manager", icon: KeyRound, to: "/api-manager", keywords: "openai elevenlabs pexels keys" },
   { id: "s-basic", group: "System", title: "Basic Settings", hint: "LLM & Providers", icon: SettingsIcon, to: "/basic-settings", keywords: "llm provider model openai groq" },
-  { id: "s-set", group: "System", title: "Settings", icon: SettingsIcon, to: "/settings" },
+  
   { id: "s-lang", group: "System", title: "Languages", icon: Languages, to: "/languages" },
   { id: "s-log", group: "System", title: "Logs", icon: ScrollText, to: "/logs" },
   { id: "s-dev", group: "System", title: "Developer Mode", icon: Code2, to: "/developer" },
