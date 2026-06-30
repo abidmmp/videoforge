@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, Slider, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Code2, RefreshCw, Save, Bell } from "lucide-react";
+import { Cpu, HardDrive, Zap, RefreshCw, Save, Bell } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
@@ -8,21 +8,18 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
 });
 
-// General application preferences only — API configuration lives in /basic-settings,
-// key management in /api-manager, and render defaults in /render-settings. Video/voice/
-// subtitle preferences live in their respective studios.
+// Machine/application settings only. General preferences live in /account,
+// performance lives in /render-settings, developer lives in /developer.
 const tabs = [
-  { k: "general",       l: "General",       icon: SettingsIcon },
-  { k: "performance",   l: "Performance",   icon: Zap },
   { k: "gpu",           l: "GPU",           icon: Cpu },
   { k: "storage",       l: "Storage",       icon: HardDrive },
   { k: "notifications", l: "Notifications", icon: Bell },
   { k: "updates",       l: "Updates",       icon: RefreshCw },
-  { k: "developer",     l: "Developer",     icon: Code2 },
 ];
 
 function SettingsPage() {
-  const [tab, setTab] = useState("general");
+  const [tab, setTab] = useState("gpu");
+
   return (
     <AppShell>
       <PageHeader
