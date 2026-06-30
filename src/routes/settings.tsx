@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, Slider, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Sparkles, Code2, RefreshCw, Save, Bell } from "lucide-react";
+import { Settings as SettingsIcon, Cpu, HardDrive, Zap, Code2, RefreshCw, Save, Bell } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
@@ -8,12 +8,11 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
 });
 
-// General application preferences only — API configuration lives in /basic-settings
-// and key management in /api-manager. Video/voice/subtitle preferences live in
-// their respective studios.
+// General application preferences only — API configuration lives in /basic-settings,
+// key management in /api-manager, and render defaults in /render-settings. Video/voice/
+// subtitle preferences live in their respective studios.
 const tabs = [
   { k: "general",       l: "General",       icon: SettingsIcon },
-  { k: "rendering",     l: "Rendering",     icon: Sparkles },
   { k: "performance",   l: "Performance",   icon: Zap },
   { k: "gpu",           l: "GPU",           icon: Cpu },
   { k: "storage",       l: "Storage",       icon: HardDrive },
@@ -53,15 +52,6 @@ function SettingsPage() {
             <Row label="Start with last project"><Toggle checked /></Row>
             <Row label="Send anonymous usage analytics"><Toggle /></Row>
             <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
-          </Group>}
-
-          {tab === "rendering" && <Group title="Rendering" sub="Default render preset">
-            <Field label="Encoder"><Select><option>H.264 NVENC (GPU)</option><option>H.264 CPU</option><option>HEVC</option><option>AV1</option></Select></Field>
-            <Field label="Quality preset"><Select><option>Balanced</option><option>Maximum quality</option><option>Fast preview</option></Select></Field>
-            <Field label="Bitrate target (Mbps)"><Slider value={60} /></Field>
-            <Row label="Two-pass encoding"><Toggle /></Row>
-            <Row label="Hardware acceleration"><Toggle checked /></Row>
-            <Row label="Delete temp files after success"><Toggle checked /></Row>
           </Group>}
 
           {tab === "video" && <Group title="Video Defaults" sub="Defaults applied to every new project">
@@ -142,7 +132,7 @@ function SettingsPage() {
   );
 }
 
-function Group({ title, sub, children }: any) {
+export function Group({ title, sub, children }: any) {
   return (
     <div className="rounded-3xl bg-card border border-border p-6 shadow-card">
       <div className="mb-5">
@@ -154,6 +144,6 @@ function Group({ title, sub, children }: any) {
   );
 }
 
-function Row({ label, children }: any) {
+export function Row({ label, children }: any) {
   return <div className="flex items-center justify-between py-1.5 border-t border-border/50 first:border-t-0 pt-3 first:pt-0"><span className="text-[13px] font-medium">{label}</span>{children}</div>;
 }
