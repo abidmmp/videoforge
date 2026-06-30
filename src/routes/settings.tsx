@@ -42,14 +42,8 @@ function SettingsPage() {
         </aside>
 
         <div className="flex-1 min-w-0 space-y-5">
-          {tab === "general" && <Group title="General" sub="Workspace name, defaults and behavior">
-            <Field label="Workspace name"><Input defaultValue="Abid's Studio" /></Field>
-            <Field label="Default project location"><Input defaultValue="C:\\VideoForge\\Projects" /></Field>
-            <Field label="Theme"><Select><option>System</option><option>Light</option><option>Dark</option></Select></Field>
-            <Row label="Start with last project"><Toggle checked /></Row>
-            <Row label="Send anonymous usage analytics"><Toggle /></Row>
-            <Row label="Show keyboard shortcuts on hover"><Toggle checked /></Row>
-          </Group>}
+
+
 
           {tab === "video" && <Group title="Video Defaults" sub="Defaults applied to every new project">
             <Field label="Default aspect ratio"><Select><option>9:16 Vertical</option><option>16:9 Horizontal</option><option>1:1 Square</option></Select></Field>
