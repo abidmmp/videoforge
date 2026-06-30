@@ -427,6 +427,15 @@ function BasicSettingsPage() {
           </SectionCard>
         </div>
       </div>
+
+      <div className="mt-5 space-y-5">
+        <ApiGroupSection title="TTS APIs" sub="Voice synthesis" items={TTS_APIS} />
+        <ApiGroupSection
+          title="Future APIs"
+          sub="Planned integrations — not yet enabled"
+          items={FUTURE_APIS}
+        />
+      </div>
     </AppShell>
   );
 }
