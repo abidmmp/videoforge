@@ -106,12 +106,8 @@ function SettingsPage() {
             <Row label="Allow custom plugins"><Toggle checked /></Row>
           </Group>}
 
-          {tab === "developer" && <Group title="Developer">
-            <Row label="Show developer tools in app"><Toggle /></Row>
-            <Row label="Enable raw API response inspector"><Toggle /></Row>
-            <Field label="Backend URL"><Input defaultValue="http://127.0.0.1:8501" /></Field>
-            <Field label="Webhook URL"><Input placeholder="https://…" /></Field>
-          </Group>}
+
+
         </div>
       </div>
     </AppShell>
