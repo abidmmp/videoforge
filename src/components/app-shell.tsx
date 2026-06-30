@@ -392,7 +392,7 @@ function UserMenu() {
     { icon: Gauge, label: "Usage" },
     { icon: Receipt, label: "Subscription" },
     { icon: Shield, label: "Security" },
-    { icon: SettingsIcon, label: "Settings" },
+    
   ];
   return (
     <div className="relative" ref={ref}>
