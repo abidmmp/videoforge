@@ -9,7 +9,7 @@ import {
   GhostButton,
   PrimaryButton,
 } from "@/components/app-shell";
-import { Save, Sparkles } from "lucide-react";
+import { Save } from "lucide-react";
 import { Group, Row } from "@/routes/settings";
 
 export const Route = createFileRoute("/render-settings")({

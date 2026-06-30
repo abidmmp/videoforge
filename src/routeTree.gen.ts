@@ -19,6 +19,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RenderSettingsRouteImport } from './routes/render-settings'
 import { Route as RenderRouteImport } from './routes/render'
 import { Route as QueueRouteImport } from './routes/queue'
 import { Route as ProjectsRouteImport } from './routes/projects'
@@ -91,6 +92,11 @@ const SecurityRoute = SecurityRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RenderSettingsRoute = RenderSettingsRouteImport.update({
+  id: '/render-settings',
+  path: '/render-settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RenderRoute = RenderRouteImport.update({
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/queue': typeof QueueRoute
   '/render': typeof RenderRoute
+  '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
@@ -268,6 +275,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/queue': typeof QueueRoute
   '/render': typeof RenderRoute
+  '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/queue': typeof QueueRoute
   '/render': typeof RenderRoute
+  '/render-settings': typeof RenderSettingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/queue'
     | '/render'
+    | '/render-settings'
     | '/reset-password'
     | '/security'
     | '/settings'
@@ -376,6 +386,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/queue'
     | '/render'
+    | '/render-settings'
     | '/reset-password'
     | '/security'
     | '/settings'
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/queue'
     | '/render'
+    | '/render-settings'
     | '/reset-password'
     | '/security'
     | '/settings'
@@ -447,6 +459,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   QueueRoute: typeof QueueRoute
   RenderRoute: typeof RenderRoute
+  RenderSettingsRoute: typeof RenderSettingsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SecurityRoute: typeof SecurityRoute
   SettingsRoute: typeof SettingsRoute
@@ -529,6 +542,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/render-settings': {
+      id: '/render-settings'
+      path: '/render-settings'
+      fullPath: '/render-settings'
+      preLoaderRoute: typeof RenderSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/render': {
@@ -719,6 +739,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   QueueRoute: QueueRoute,
   RenderRoute: RenderRoute,
+  RenderSettingsRoute: RenderSettingsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SecurityRoute: SecurityRoute,
   SettingsRoute: SettingsRoute,
