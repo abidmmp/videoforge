@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader, Field, Input, Select, Toggle, GhostButton, PrimaryButton, Pill } from "@/components/app-shell";
-import { User, UserCircle, Sparkles, Receipt, Gauge, Shield, Check, Download, Smartphone, Key } from "lucide-react";
+import { User, UserCircle, Sparkles, Receipt, Gauge, Shield, Check, Download, Smartphone, Key, Settings as SettingsIcon } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/account")({
